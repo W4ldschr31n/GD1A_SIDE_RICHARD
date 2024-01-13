@@ -20,6 +20,8 @@ public class DynamicMovement : MonoBehaviour
     private bool isOnGround = false;
     private bool isOnWall = false;
     private bool doubleJump = false;
+    private float wallJumpTimer = 0.3f;
+    private float wallJumpRemainingTime = 0f;
 
     // Data indicating how to move
     private float wallJumpX;
@@ -42,33 +44,52 @@ public class DynamicMovement : MonoBehaviour
         float direction = Input.GetKey(KeyCode.LeftArrow) ? -1f : (Input.GetKey(KeyCode.RightArrow) ? 1f : 0f);
         float desiredSpeed;
         float desiredAcceleration;
+        // Moving on the ground
         if (isOnGround)
         {
             desiredSpeed = maxSpeed;
+            desiredAcceleration = maxAcceleration;
         }
-        else if (isOnWall)
+        // Moving on a wall
+        else if (isOnWall && wallJumpRemainingTime <= 0f)
         {
             if (direction == -wallJumpX)
             {
                 desiredSpeed = 0f;
+                desiredAcceleration = 0f;
                 velocity.y = -1f * Time.deltaTime;
             }
             else
             {
                 desiredSpeed = maxSpeed * airControl;
+                desiredAcceleration = maxAcceleration * airControl;
             }
         }
+        // Moving in the air
         else
         {
-            desiredSpeed = maxSpeed * airControl;
+            if (direction == 0f)
+            {
+                direction = rgbd.velocity.x >= 0f ? 1f : -1f;
+                desiredSpeed = direction * rgbd.velocity.x;
+            }
+            else
+            {
+                desiredSpeed = maxSpeed * airControl;
+            }
+            desiredAcceleration = maxAcceleration * airControl;// * Time.deltaTime;
         }
         desiredVelocity = direction * desiredSpeed;
-        if (
+        if (wallJumpRemainingTime > 0f)
+        {
+            wallJumpRemainingTime -= Time.deltaTime;
+        }
+        else if (
             desiredVelocity <= 0f && velocity.x > desiredVelocity 
             ||
             desiredVelocity >= 0f && velocity.x < desiredVelocity)
         {
-            velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity, maxAcceleration*Time.deltaTime);
+            velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity, desiredAcceleration);
         }
 
         // Jump
@@ -78,8 +99,10 @@ public class DynamicMovement : MonoBehaviour
         }
 
         // Update velocity
-        Debug.Log(velocity.x);
         rgbd.velocity = velocity;
+
+        if (Input.GetKeyDown(KeyCode.R))
+            transform.position = Vector2.zero;
         
     }
 
@@ -94,8 +117,9 @@ public class DynamicMovement : MonoBehaviour
         // Wall jump
         else if (isOnWall)
         {
-            velocity.x = wallJumpX * 20f;
+            velocity.x = wallJumpX * maxSpeed;
             velocity.y = Mathf.Sqrt(-2f * Physics2D.gravity.y * jumpHeight);
+            wallJumpRemainingTime = wallJumpTimer;
             Debug.Log("Wall Jump");
         }
         // Double jump

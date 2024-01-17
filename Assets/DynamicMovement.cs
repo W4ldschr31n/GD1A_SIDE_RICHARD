@@ -18,7 +18,7 @@ public class DynamicMovement : MonoBehaviour
 
     // State allowing movement
     private bool isOnGround = false;
-    private bool isOnWall = false;
+    private bool isNearWall = false;
     private bool doubleJump = false;
     private float wallJumpTimer = 0.3f;
     private float wallJumpRemainingTime = 0f;
@@ -51,9 +51,9 @@ public class DynamicMovement : MonoBehaviour
             desiredAcceleration = maxAcceleration;
         }
         // Moving on a wall
-        else if (isOnWall && wallJumpRemainingTime <= 0f)
+        else if (isNearWall && wallJumpRemainingTime <= 0f)
         {
-            if (direction == -wallJumpX)
+            if (direction == -wallJumpX || direction == 0f)
             {
                 desiredSpeed = 0f;
                 desiredAcceleration = 0f;
@@ -62,7 +62,7 @@ public class DynamicMovement : MonoBehaviour
             else
             {
                 desiredSpeed = maxSpeed * airControl;
-                desiredAcceleration = maxAcceleration * airControl;
+                desiredAcceleration = maxAcceleration * airControl * Time.deltaTime;
             }
         }
         // Moving in the air
@@ -77,7 +77,7 @@ public class DynamicMovement : MonoBehaviour
             {
                 desiredSpeed = maxSpeed * airControl;
             }
-            desiredAcceleration = maxAcceleration * airControl;// * Time.deltaTime;
+            desiredAcceleration = maxAcceleration * airControl * Time.deltaTime;
         }
         desiredVelocity = direction * desiredSpeed;
         if (wallJumpRemainingTime > 0f)
@@ -90,6 +90,7 @@ public class DynamicMovement : MonoBehaviour
             desiredVelocity >= 0f && velocity.x < desiredVelocity)
         {
             velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity, desiredAcceleration);
+            Debug.Log("velocity X ="+velocity.x);
         }
 
         // Jump
@@ -115,7 +116,7 @@ public class DynamicMovement : MonoBehaviour
             Debug.Log("Simple Jump");
         }
         // Wall jump
-        else if (isOnWall)
+        else if (isNearWall)
         {
             velocity.x = wallJumpX * maxSpeed;
             velocity.y = Mathf.Sqrt(-2f * Physics2D.gravity.y * jumpHeight);
@@ -154,7 +155,7 @@ public class DynamicMovement : MonoBehaviour
             {
                 if (collision.GetContact(i).normal.y <= 0.1f)
                 {
-                    isOnWall |= true;
+                    isNearWall |= true;
                     velocity.x = 0f;
                     wallJumpX = collision.GetContact(i).normal.x;
                 }
@@ -192,7 +193,7 @@ public class DynamicMovement : MonoBehaviour
             {
                 if (collision.GetContact(i).normal.y <= 0.1f)
                 {
-                    isOnWall |= true;
+                    isNearWall |= true;
                     wallJumpX = collision.GetContact(i).normal.x;
                 }
             }
@@ -210,7 +211,7 @@ public class DynamicMovement : MonoBehaviour
         // Player detached from a wall
         else if (col_layer == LayerMask.NameToLayer("Wall"))
         {
-            isOnWall = false;
+            isNearWall = false;
         }
     }
 }

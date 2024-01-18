@@ -5,14 +5,18 @@ using UnityEngine;
 public class DynamicMovement : MonoBehaviour
 {
     // Parameters for movement
-    [SerializeField, Range(0f, 10f)]
-    private float maxAcceleration = 10f;
-    [SerializeField, Range(0f, 10f)]
-    private float maxSpeed = 10f;
+    [SerializeField, Range(0f, 100f)]
+    private float baseAcceleration = 20f;
+    [SerializeField, Range(0f, 100f)]
+    private float baseSpeed = 10f;
     [SerializeField, Range(0f, 10f)]
     private float jumpHeight = 2f;
     [SerializeField, Range(0f, 1f)]
     private float airControl = 0.5f;
+    [SerializeField]
+    private float acceleratingFactor = 1f;
+    [SerializeField]
+    private float deceleratingFactor = 1f;
     [SerializeField]
     private Rigidbody2D rgbd;
 
@@ -26,6 +30,7 @@ public class DynamicMovement : MonoBehaviour
     // Data indicating how to move
     private float wallJumpX;
     private Vector2 velocity;
+    private float currentAcceleration = 0f;
     private float desiredVelocity;
 
     // Start is called before the first frame update
@@ -42,13 +47,16 @@ public class DynamicMovement : MonoBehaviour
 
         // Move left or right
         float direction = Input.GetKey(KeyCode.LeftArrow) ? -1f : (Input.GetKey(KeyCode.RightArrow) ? 1f : 0f);
+        MoveOnPlatform(direction);
+        /*
         float desiredSpeed;
         float desiredAcceleration;
         // Moving on the ground
+        
         if (isOnGround)
         {
-            desiredSpeed = maxSpeed;
-            desiredAcceleration = maxAcceleration;
+            desiredSpeed = baseSpeed;
+            desiredAcceleration = baseAcceleration;
         }
         // Moving on a wall
         else if (isNearWall && wallJumpRemainingTime <= 0f)
@@ -61,8 +69,8 @@ public class DynamicMovement : MonoBehaviour
             }
             else
             {
-                desiredSpeed = maxSpeed * airControl;
-                desiredAcceleration = maxAcceleration * airControl * Time.deltaTime;
+                desiredSpeed = baseSpeed * airControl;
+                desiredAcceleration = baseAcceleration * airControl * Time.deltaTime;
             }
         }
         // Moving in the air
@@ -75,11 +83,12 @@ public class DynamicMovement : MonoBehaviour
             }
             else
             {
-                desiredSpeed = maxSpeed * airControl;
+                desiredSpeed = baseSpeed * airControl;
             }
-            desiredAcceleration = maxAcceleration * airControl * Time.deltaTime;
+            desiredAcceleration = baseAcceleration * airControl * Time.deltaTime;
         }
         desiredVelocity = direction * desiredSpeed;
+        // During wall jump we lose control
         if (wallJumpRemainingTime > 0f)
         {
             wallJumpRemainingTime -= Time.deltaTime;
@@ -98,13 +107,71 @@ public class DynamicMovement : MonoBehaviour
         {
             Jump();
         }
-
+        */
         // Update velocity
         rgbd.velocity = velocity;
 
         if (Input.GetKeyDown(KeyCode.R))
             transform.position = Vector2.zero;
         
+    }
+
+    private void MoveOnPlatform(float direction)
+    {
+        // Prepare to change velocity
+        velocity = rgbd.velocity;
+
+        float desiredSpeed = baseSpeed * acceleratingFactor;
+        float desiredAcceleration;
+        float desiredVelocity = direction * desiredSpeed;
+
+        bool wantToMove = direction != 0f;
+        bool needToAccelerate = (
+            desiredVelocity < 0f && velocity.x > desiredVelocity
+            ||
+            desiredVelocity > 0f && velocity.x < desiredVelocity
+        );
+        // Acceleration of the character
+        if (wantToMove && needToAccelerate)
+        {
+            desiredAcceleration = baseAcceleration * acceleratingFactor;
+        }
+        // Deceleration of the character
+        else
+        {
+            desiredAcceleration = baseAcceleration * deceleratingFactor;
+        }
+        // Move the character
+        velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity, desiredAcceleration * Time.deltaTime);
+        Debug.Log("velocity X =" + velocity.x);
+        Debug.Log("acceleration X =" + currentAcceleration);
+        /*
+        // We want to stop moving
+        if (direction == 0f)
+        {
+            desiredSpeed = 0f;
+            desiredAcceleration = baseAcceleration * deceleratingFactor;
+        }
+        // We want to keep moving
+        else
+        {
+            // We have not reached desiredVelocity yet, we have to accelerate
+            if (
+            {
+                desiredSpeed = baseSpeed * acceleratingFactor;
+                desiredAcceleration = baseAcceleration * acceleratingFactor;
+        }
+        desiredVelocity = direction * desiredSpeed;
+        velocity.x = Mathf.MoveTowards(velocity.x, 0f, desiredAcceleration);
+        // We have not reached desiredVelocity yet, we have to accelerate
+        if (desiredVelocity <= 0f && velocity.x > desiredVelocity
+            ||
+            desiredVelocity >= 0f && velocity.x < desiredVelocity)
+        {
+            velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity, desiredAcceleration);
+            Debug.Log("velocity X =" + velocity.x);
+        }
+        */
     }
 
     private void Jump()
@@ -118,7 +185,7 @@ public class DynamicMovement : MonoBehaviour
         // Wall jump
         else if (isNearWall)
         {
-            velocity.x = wallJumpX * maxSpeed;
+            velocity.x = wallJumpX * baseSpeed;
             velocity.y = Mathf.Sqrt(-2f * Physics2D.gravity.y * jumpHeight);
             wallJumpRemainingTime = wallJumpTimer;
             Debug.Log("Wall Jump");
@@ -179,11 +246,11 @@ public class DynamicMovement : MonoBehaviour
             }
             if (collision.gameObject.CompareTag("Ice"))
             {
-                maxAcceleration = maxSpeed / 2;
+                baseAcceleration = baseSpeed / 2;
             }
             else
             {
-                maxAcceleration = maxSpeed;
+                baseAcceleration = baseSpeed;
             }
         }
         // Player is hugging a wall
@@ -213,5 +280,15 @@ public class DynamicMovement : MonoBehaviour
         {
             isNearWall = false;
         }
+    }
+
+    public void setAcceleratingFactor(float newAcceleratingFactor)
+    {
+        acceleratingFactor = newAcceleratingFactor;
+    }
+
+    public void setDeceleratingFactor(float newDeceleratingFactor)
+    {
+        acceleratingFactor = newDeceleratingFactor;
     }
 }

@@ -16,6 +16,9 @@ public class PlayerBehaviour : MonoBehaviour
     // Data indicating how to behave
     private float iFrames = 1.5f;
     private float remainingIFrames;
+    private int maxHealth = 3;
+    [SerializeField]
+    private int health = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -52,22 +55,38 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void GetHit(int damage)
     {
-        Debug.Log("GTE HIT " + damage);
-        if(damage > 1)
-        {
-            Die();
-        }
-        else
+        if (canGetHit)
         {
             canGetHit = false;
             remainingIFrames = iFrames;
             rgbd.velocity = new Vector2(-10, 10);
             sprite.color = Color.gray;
+            LoseHealth(damage);
         }
     }
 
     private void Die()
     {
         transform.position = Vector2.zero;
+        health = maxHealth;
+    }
+
+    public void GainHealth(int heal)
+    {
+        health = Mathf.Min(maxHealth, health + heal);
+    }
+
+    public void LoseHealth(int damage)
+    {
+        health = Mathf.Max(health-damage, 0);
+        if (!IsAlive())
+        {
+            Die();
+        }
+    }
+
+    public bool IsAlive()
+    {
+        return health > 0;
     }
 }

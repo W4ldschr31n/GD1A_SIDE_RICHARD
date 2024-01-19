@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrapBehaviour : MonoBehaviour
+public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField]
-    private PolygonCollider2D hitbox;
+    private Collider2D hitbox;
     [SerializeField]
     private int damage = 1;
 

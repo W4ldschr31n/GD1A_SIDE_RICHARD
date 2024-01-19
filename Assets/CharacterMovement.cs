@@ -75,7 +75,6 @@ public abstract class CharacterMovement : MonoBehaviour
         }
         // Move the character
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity, desiredAcceleration * Time.deltaTime);
-        Debug.Log("velocity X platform =" + velocity.x);
     }
 
     protected void MoveNearWall(float direction)
@@ -111,7 +110,6 @@ public abstract class CharacterMovement : MonoBehaviour
         }
         // Move the character
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity, desiredAcceleration * Time.deltaTime);
-        Debug.Log("velocity X air =" + velocity.x);
     }
 
     protected void Jump()
@@ -121,23 +119,19 @@ public abstract class CharacterMovement : MonoBehaviour
         if (isOnGround)
         {
             velocity.y = jumpImpulse;
-            Debug.Log("Simple Jump");
         }
         // Wall jump
         else if (isNearWall)
         {
             velocity.x = wallJumpX * baseSpeed;
             velocity.y = jumpImpulse;
-            Debug.Log("Wall Jump");
         }
         // Double jump
         else if (doubleJump)
         {
             velocity.y = jumpImpulse;
             doubleJump = false;
-            Debug.Log("Double Jump");
         }
-        Debug.Log("Velocity jump =" + velocity);
     }
 
 

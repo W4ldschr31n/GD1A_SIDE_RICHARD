@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5666538176705476330}
   - component: {fileID: 2905125215717361443}
   - component: {fileID: 909457249211609747}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,5 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e8ce0e0037b2c14b90d524cc06e83a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleratingRate: 1
-  deceleratingRate: 1
+  acceleratingFactor: 1
+  deceleratingFactor: 1

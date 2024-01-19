@@ -6,6 +6,9 @@ public class TrapBehaviour : MonoBehaviour
 {
     [SerializeField]
     private PolygonCollider2D hitbox;
+    [SerializeField]
+    private int damage = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +24,7 @@ public class TrapBehaviour : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Character")) {
-            collision.gameObject.SendMessage("Die");
+            collision.gameObject.SendMessage("GetHit", damage);
         }
     }
 }

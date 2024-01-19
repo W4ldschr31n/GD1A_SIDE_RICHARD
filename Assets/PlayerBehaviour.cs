@@ -31,7 +31,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F) && canGetHit)
         {
-            GetHit();
+            GetHit(1);
         }
     }
 
@@ -50,15 +50,23 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    private void GetHit()
+    private void GetHit(int damage)
     {
-        canGetHit = false;
-        remainingIFrames = iFrames;
-        rgbd.velocity = new Vector2(-10, 10);
-        sprite.color = Color.gray;
+        Debug.Log("GTE HIT " + damage);
+        if(damage > 1)
+        {
+            Die();
+        }
+        else
+        {
+            canGetHit = false;
+            remainingIFrames = iFrames;
+            rgbd.velocity = new Vector2(-10, 10);
+            sprite.color = Color.gray;
+        }
     }
 
-    public void Die()
+    private void Die()
     {
         transform.position = Vector2.zero;
     }

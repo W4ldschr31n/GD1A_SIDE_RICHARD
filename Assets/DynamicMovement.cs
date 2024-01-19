@@ -28,8 +28,6 @@ public class DynamicMovement : MonoBehaviour
     // Data indicating how to move
     private float wallJumpX;
     private Vector2 velocity;
-    private float currentAcceleration = 0f;
-    private float desiredVelocity;
 
     // Start is called before the first frame update
     void Start()
@@ -64,12 +62,12 @@ public class DynamicMovement : MonoBehaviour
         {
             Jump();
         }
-
         // Update velocity
         rgbd.velocity = velocity;
 
         if (Input.GetKeyDown(KeyCode.R))
             transform.position = Vector2.zero;
+
         
     }
 
@@ -162,6 +160,8 @@ public class DynamicMovement : MonoBehaviour
         Debug.Log("Velocity jump =" + velocity);
     }
 
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         HandleCollision(collision, true);
@@ -230,4 +230,5 @@ public class DynamicMovement : MonoBehaviour
     {
         deceleratingFactor = newDeceleratingFactor;
     }
+
 }

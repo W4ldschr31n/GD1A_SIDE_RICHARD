@@ -5,7 +5,7 @@ using UnityEngine;
 public class TrapBehaviour : MonoBehaviour
 {
     [SerializeField]
-    private BoxCollider2D hitbox;
+    private PolygonCollider2D hitbox;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +20,7 @@ public class TrapBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) {
+        if (collision.gameObject.CompareTag("Character")) {
             collision.gameObject.SendMessage("Die");
         }
     }

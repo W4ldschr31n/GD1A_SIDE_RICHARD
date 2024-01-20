@@ -1245,7 +1245,7 @@ GameObject:
   - component: {fileID: 1619205811}
   m_Layer: 8
   m_Name: DynamicPlayer
-  m_TagString: Character
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1404,18 +1404,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 739fb988c696f7446b5c9454a81dd83a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseAcceleration: 20
-  baseSpeed: 10
-  jumpHeight: 2
-  airControl: 0.8
-  acceleratingFactor: 1
-  deceleratingFactor: 1
-  rgbd: {fileID: 1619205806}
-  isOnGround: 0
-  isNearWall: 0
-  doubleJump: 0
-  wallJumpX: 0
-  velocity: {x: 0, y: 0}
 --- !u!114 &1619205810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1597,7 +1585,7 @@ GameObject:
   - component: {fileID: 1721362525}
   m_Layer: 9
   m_Name: Enemy
-  m_TagString: Character
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

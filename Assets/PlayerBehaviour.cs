@@ -8,6 +8,8 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rgbd;
     [SerializeField]
+    private Collider2D hitbox;
+    [SerializeField]
     private SpriteRenderer sprite;
 
     // States allowing behaviour
@@ -32,9 +34,36 @@ public class PlayerBehaviour : MonoBehaviour
 
         TickTimers();
 
-        if (Input.GetKeyDown(KeyCode.F) && canGetHit)
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            GetHit(1);
+            for (int i = 0; i < collision.contactCount; i++)
+            {
+                if (collision.GetContact(i).normal.y >= 0.9)
+                {
+                    collision.gameObject.SendMessage("Die");
+                    break;
+                }
+                else
+                {
+                    if (canGetHit)
+                    {
+                        canGetHit = false;
+                        remainingIFrames = iFrames;
+                        float xNormal = collision.GetContact(i).normal.x;
+                        float bumpDirection = xNormal < 0 ? -1f : xNormal > 0 ? 1f : 0f;
+                        rgbd.velocity = new Vector2(-10*bumpDirection, 10);
+                        sprite.color = Color.gray;
+                    }
+                }
+            }
+        }
+        else if (collision.gameObject.CompareTag("Trap"))
+        {
+            Die();
         }
     }
 

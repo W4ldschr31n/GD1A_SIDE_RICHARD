@@ -22,10 +22,7 @@ public class PlatformBehavior : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // When a character gets on a platform, its movement is regulated by the type of the platform
-        if (collision.gameObject.CompareTag("Character"))
-        {
-            collision.gameObject.SendMessage("setAcceleratingFactor", acceleratingFactor);
-            collision.gameObject.SendMessage("setDeceleratingFactor", deceleratingFactor);
-        }
+        collision.gameObject.SendMessage("setAcceleratingFactor", acceleratingFactor);
+        collision.gameObject.SendMessage("setDeceleratingFactor", deceleratingFactor);
     }
 }

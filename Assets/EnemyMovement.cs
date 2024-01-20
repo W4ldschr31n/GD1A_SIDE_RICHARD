@@ -9,6 +9,7 @@ public class EnemyMovement : CharacterMovement
     private Transform targetPoint;
 
     private bool goForth = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,8 +18,10 @@ public class EnemyMovement : CharacterMovement
 
     protected override void Move()
     {
-        float direction = transform.position.x < targetPoint.position.x ? 1f : -1f;
-        if (Mathf.Abs(transform.position.x - targetPoint.position.x) > 0.5f)
+        velocity = rgbd.velocity;
+
+        float direction = rgbd.transform.position.x < targetPoint.position.x ? 1f : -1f;
+        if (Mathf.Abs(rgbd.transform.position.x - targetPoint.position.x) > 0.5f)
         {
             base.MoveOnPlatform(direction);
         }
@@ -27,6 +30,8 @@ public class EnemyMovement : CharacterMovement
             goForth = !goForth;
             targetPoint = goForth ? patrolPointStart : patrolPointEnd;
         }
+
+        rgbd.velocity = velocity;
     }
 
 

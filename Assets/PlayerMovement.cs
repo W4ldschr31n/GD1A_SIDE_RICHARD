@@ -7,7 +7,8 @@ public class PlayerMovement : CharacterMovement
 
     protected override void Move()
     {
-        
+        // Prepare to move the body
+        velocity = rgbd.velocity;
 
         float direction = Input.GetKey(KeyCode.LeftArrow) ? -1f : (Input.GetKey(KeyCode.RightArrow) ? 1f : 0f);
         // Move on a platform
@@ -31,7 +32,11 @@ public class PlayerMovement : CharacterMovement
             Jump();
         }
 
+        // Reset player position
         if (Input.GetKeyDown(KeyCode.R))
-            transform.position = Vector2.zero;
+            rgbd.transform.position = Vector2.zero;
+
+        // Effectively move the body
+        rgbd.velocity = velocity;
     }
 }

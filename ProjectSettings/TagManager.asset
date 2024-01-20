@@ -4,9 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ice
   - Trap
   - Character
+  - Ground
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -14,8 +15,8 @@ TagManager:
   - 
   - Water
   - UI
-  - Ground
-  - Wall
+  - Platform
+  - Background
   - Player
   - Enemy
   - Collectible

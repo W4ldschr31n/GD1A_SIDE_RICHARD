@@ -1048,9 +1048,9 @@ GameObject:
   - component: {fileID: 1148820256}
   - component: {fileID: 1148820255}
   - component: {fileID: 1148820254}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Square (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1429,6 +1429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rgbd: {fileID: 1619205806}
+  hitbox: {fileID: 0}
   sprite: {fileID: 1619205807}
   health: 3
 --- !u!114 &1619205811
@@ -1461,9 +1462,9 @@ GameObject:
   - component: {fileID: 1667006893}
   - component: {fileID: 1667006892}
   - component: {fileID: 1667006891}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Square (3)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

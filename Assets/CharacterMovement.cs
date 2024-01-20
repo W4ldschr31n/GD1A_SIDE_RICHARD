@@ -18,7 +18,7 @@ public abstract class CharacterMovement : MonoBehaviour
     [SerializeField]
     private float deceleratingFactor = 1f;
     [SerializeField]
-    private Rigidbody2D rgbd;
+    protected Rigidbody2D rgbd;
 
     // State allowing movement
     protected bool isOnGround = false;
@@ -26,8 +26,8 @@ public abstract class CharacterMovement : MonoBehaviour
     protected bool doubleJump = false;
 
     // Data indicating how to move
-    private float wallJumpX;
-    private Vector2 velocity;
+    protected float wallJumpX;
+    protected Vector2 velocity;
 
     // Start is called before the first frame update
     void Start()
@@ -48,8 +48,6 @@ public abstract class CharacterMovement : MonoBehaviour
     }
 
     protected abstract void Move();
-
-    //protected abstract float GetDirection();
 
     protected void MoveOnPlatform(float direction)
     {
@@ -134,8 +132,6 @@ public abstract class CharacterMovement : MonoBehaviour
         }
     }
 
-
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         HandleCollision(collision, true);
@@ -146,11 +142,10 @@ public abstract class CharacterMovement : MonoBehaviour
         HandleCollision(collision, false);
     }
 
-    private void HandleCollision(Collision2D collision, bool IsEnterCollision)
+    private void HandleCollision(Collision2D collision, bool isEnterCollision)
     {
-        int col_layer = collision.gameObject.layer;
         // Player is on the ground
-        if (col_layer == LayerMask.NameToLayer("Ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             for (int i = 0; i < collision.contactCount; i++)
             {
@@ -158,23 +153,25 @@ public abstract class CharacterMovement : MonoBehaviour
                 {
                     isOnGround = true;
                     doubleJump = true;
+                    break;
                 }
             }
         }
         // Player is hugging a wall
-        else if (col_layer == LayerMask.NameToLayer("Wall"))
+        else if (collision.gameObject.CompareTag("Wall"))
         {
             for (int i = 0; i < collision.contactCount; i++)
             {
-                if (collision.GetContact(i).normal.y <= 0.1f)
+                if (Mathf.Abs(collision.GetContact(i).normal.y) <= 0.1f)
                 {
                     isNearWall = true;
                     wallJumpX = collision.GetContact(i).normal.x;
                     // Hitting a wall stops the movement
-                    if (IsEnterCollision)
+                    if (isEnterCollision)
                     {
                         velocity.x = 0f;
                     }
+                    break;
                 }
             }
         }
@@ -182,14 +179,13 @@ public abstract class CharacterMovement : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        int col_layer = collision.gameObject.layer;
         // Player left the ground
-        if (col_layer == LayerMask.NameToLayer("Ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             isOnGround = false;
         }
         // Player detached from a wall
-        else if (col_layer == LayerMask.NameToLayer("Wall"))
+        else if (collision.gameObject.CompareTag("Wall"))
         {
             isNearWall = false;
         }

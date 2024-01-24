@@ -24,7 +24,22 @@ public class EnemyBehaviour : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player")) {
-            collision.gameObject.SendMessage("GetHit", damage);
+            ContactPoint2D contact = collision.GetContact(0);
+            // If the player is above the enemy, the latter dies
+            if (contact.normal.y <= -0.9)
+            {
+                Die();
+            }
+            // If the player is below or next to the enemy, the former get hit
+            else
+            {
+                collision.gameObject.GetComponent<PlayerBehaviour>().GetHit(damage, contact.normal);
+            }
         }
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }

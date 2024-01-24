@@ -36,37 +36,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            for (int i = 0; i < collision.contactCount; i++)
-            {
-                if (collision.GetContact(i).normal.y >= 0.9)
-                {
-                    collision.gameObject.SendMessage("Die");
-                    break;
-                }
-                else
-                {
-                    if (canGetHit)
-                    {
-                        canGetHit = false;
-                        remainingIFrames = iFrames;
-                        float xNormal = collision.GetContact(i).normal.x;
-                        float bumpDirection = xNormal < 0 ? -1f : xNormal > 0 ? 1f : 0f;
-                        rgbd.velocity = new Vector2(-10*bumpDirection, 10);
-                        sprite.color = Color.gray;
-                    }
-                }
-            }
-        }
-        else if (collision.gameObject.CompareTag("Trap"))
-        {
-            Die();
-        }
-    }
-
     private void TickTimers()
     {
         // Tick down all timers
@@ -82,14 +51,14 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    private void GetHit(int damage)
+    public void GetHit(int damage, Vector2 normal)
     {
         if (canGetHit)
         {
             canGetHit = false;
             remainingIFrames = iFrames;
-            rgbd.velocity = new Vector2(-10, 10);
             sprite.color = Color.gray;
+            rgbd.velocity = new Vector2(normal.x * -10, 10);
             LoseHealth(damage);
         }
     }

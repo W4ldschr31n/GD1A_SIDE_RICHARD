@@ -8,8 +8,6 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rgbd;
     [SerializeField]
-    private Collider2D hitbox;
-    [SerializeField]
     private SpriteRenderer sprite;
 
     // States allowing behaviour

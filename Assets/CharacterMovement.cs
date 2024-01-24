@@ -144,12 +144,12 @@ public abstract class CharacterMovement : MonoBehaviour
 
     private void HandleCollision(Collision2D collision, bool isEnterCollision)
     {
-        // Player is on the ground
+        // Character is on the ground
         if (collision.gameObject.CompareTag("Ground"))
         {
             for (int i = 0; i < collision.contactCount; i++)
             {
-                if (collision.GetContact(i).normal.y >= 0.9f)
+                if (collision.GetContact(i).normal.y >= 0.5f)
                 {
                     isOnGround = true;
                     doubleJump = true;
@@ -157,7 +157,7 @@ public abstract class CharacterMovement : MonoBehaviour
                 }
             }
         }
-        // Player is hugging a wall
+        // Character is hugging a wall
         else if (collision.gameObject.CompareTag("Wall"))
         {
             for (int i = 0; i < collision.contactCount; i++)
@@ -179,12 +179,12 @@ public abstract class CharacterMovement : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        // Player left the ground
+        // Character left the ground
         if (collision.gameObject.CompareTag("Ground"))
         {
             isOnGround = false;
         }
-        // Player detached from a wall
+        // Character detached from a wall
         else if (collision.gameObject.CompareTag("Wall"))
         {
             isNearWall = false;

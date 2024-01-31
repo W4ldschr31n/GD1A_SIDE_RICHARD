@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CharacterMovement : MonoBehaviour
+public class CharacterMovement : MonoBehaviour
 {
     // Parameters for movement
     [SerializeField, Range(0f, 100f)]
@@ -27,7 +27,6 @@ public abstract class CharacterMovement : MonoBehaviour
 
     // Data indicating how to move
     protected float wallJumpX;
-    protected Vector2 velocity;
 
     // Start is called before the first frame update
     void Start()
@@ -38,18 +37,10 @@ public abstract class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Prepare to change velocity
-        velocity = rgbd.velocity;
 
-        Move();
-
-        // Update velocity
-        rgbd.velocity = velocity;
     }
 
-    protected abstract void Move();
-
-    protected void MoveOnPlatform(float direction)
+    public Vector2 MoveOnPlatform(float direction, Vector2 velocity)
     {
         float desiredSpeed = baseSpeed * acceleratingFactor;
         float desiredAcceleration;
@@ -73,18 +64,20 @@ public abstract class CharacterMovement : MonoBehaviour
         }
         // Move the character
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity, desiredAcceleration * Time.deltaTime);
+
+        return velocity;
     }
 
-    protected void MoveNearWall(float direction)
+    public Vector2 MoveNearWall(float direction, Vector2 velocity)
     {
         if (direction == -wallJumpX) {
             velocity.y = -1f * Time.deltaTime;
             direction = 0f;
         }
-        MoveInAir(direction);
+        return MoveInAir(direction);
     }
 
-    protected void MoveInAir(float direction)
+    protected Vector2 MoveInAir(float direction, Vector2 velocity)
     {
         float desiredSpeed = baseSpeed * airControl;
         float desiredAcceleration;
@@ -108,9 +101,11 @@ public abstract class CharacterMovement : MonoBehaviour
         }
         // Move the character
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity, desiredAcceleration * Time.deltaTime);
+
+        return velocity;
     }
 
-    protected void Jump()
+    public Vector2 Jump(Vector2 velocity)
     {
         float jumpImpulse = Mathf.Sqrt(-2f * Physics2D.gravity.y * jumpHeight);
         // Simple jump
@@ -130,6 +125,8 @@ public abstract class CharacterMovement : MonoBehaviour
             velocity.y = jumpImpulse;
             doubleJump = false;
         }
+
+        return velocity;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -142,7 +139,7 @@ public abstract class CharacterMovement : MonoBehaviour
         HandleCollision(collision, false);
     }
 
-    private void HandleCollision(Collision2D collision, bool isEnterCollision)
+    private Vector2 HandleCollision(Collision2D collision, bool isEnterCollision, Vector2 velocity)
     {
         // Character is on the ground
         if (collision.gameObject.CompareTag("Ground"))
@@ -175,6 +172,7 @@ public abstract class CharacterMovement : MonoBehaviour
                 }
             }
         }
+        return velocity;
     }
 
     private void OnCollisionExit2D(Collision2D collision)

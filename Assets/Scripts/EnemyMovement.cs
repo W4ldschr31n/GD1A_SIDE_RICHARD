@@ -7,11 +7,15 @@ public class EnemyMovement : MonoBehaviour
     // Parameters for movement
     [SerializeField]
     private Rigidbody2D rgbd;
+    [SerializeField]
     private Transform patrolPointStart, patrolPointEnd;
     private Transform targetPoint;
 
     // State allowing movement
     private bool goForth = true;
+
+    // Data for movement
+    private Vector2 velocity;
 
     // External script that implements physical movement
     [SerializeField]
@@ -30,17 +34,18 @@ public class EnemyMovement : MonoBehaviour
 
     private void Move()
     {
-        Vector2 velocity = rgbd.velocity;
+        velocity = rgbd.velocity;
 
         float direction = rgbd.transform.position.x < targetPoint.position.x ? 1f : -1f;
         if (Mathf.Abs(rgbd.transform.position.x - targetPoint.position.x) > 0.5f)
         {
-            velocity = characterMovement.MoveOnPlatform(direction);
+            velocity = characterMovement.MoveOnPlatform(direction, velocity);
         }
         else
         {
             goForth = !goForth;
             targetPoint = goForth ? patrolPointStart : patrolPointEnd;
+            velocity.x = 0f;
         }
 
         rgbd.velocity = velocity;

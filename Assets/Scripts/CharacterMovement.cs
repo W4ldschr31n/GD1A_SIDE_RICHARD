@@ -21,9 +21,9 @@ public class CharacterMovement : MonoBehaviour
     protected Rigidbody2D rgbd;
 
     // State allowing movement
-    protected bool isOnGround = false;
-    protected bool isNearWall = false;
-    protected bool doubleJump = false;
+    private bool isOnGround = false;
+    private bool isNearWall = false;
+    private bool doubleJump = false;
 
     // Data indicating how to move
     protected float wallJumpX;
@@ -74,10 +74,10 @@ public class CharacterMovement : MonoBehaviour
             velocity.y = -1f * Time.deltaTime;
             direction = 0f;
         }
-        return MoveInAir(direction);
+        return MoveInAir(direction, velocity);
     }
 
-    protected Vector2 MoveInAir(float direction, Vector2 velocity)
+    public Vector2 MoveInAir(float direction, Vector2 velocity)
     {
         float desiredSpeed = baseSpeed * airControl;
         float desiredAcceleration;
@@ -131,15 +131,15 @@ public class CharacterMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        HandleCollision(collision, true);
+        HandleCollision(collision);
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        HandleCollision(collision, false);
+        HandleCollision(collision);
     }
 
-    private Vector2 HandleCollision(Collision2D collision, bool isEnterCollision, Vector2 velocity)
+    private void HandleCollision(Collision2D collision)
     {
         // Character is on the ground
         if (collision.gameObject.CompareTag("Ground"))
@@ -163,16 +163,10 @@ public class CharacterMovement : MonoBehaviour
                 {
                     isNearWall = true;
                     wallJumpX = collision.GetContact(i).normal.x;
-                    // Hitting a wall stops the movement
-                    if (isEnterCollision)
-                    {
-                        velocity.x = 0f;
-                    }
                     break;
                 }
             }
         }
-        return velocity;
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -189,14 +183,24 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    public void setAcceleratingFactor(float newAcceleratingFactor)
+    public void SetAcceleratingFactor(float newAcceleratingFactor)
     {
         acceleratingFactor = newAcceleratingFactor;
     }
 
-    public void setDeceleratingFactor(float newDeceleratingFactor)
+    public void SetDeceleratingFactor(float newDeceleratingFactor)
     {
         deceleratingFactor = newDeceleratingFactor;
     }
+
+    public bool GetIsOnGround()
+    {
+        return isOnGround;
+    }
+    public bool GetIsNearWall()
+    {
+        return isNearWall;
+    }
+
 
 }

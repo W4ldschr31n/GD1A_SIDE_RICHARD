@@ -2,13 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovement : CharacterMovement
+public class EnemyMovement : MonoBehaviour
 {
+    // Parameters for movement
     [SerializeField]
+    private Rigidbody2D rgbd;
     private Transform patrolPointStart, patrolPointEnd;
     private Transform targetPoint;
 
+    // State allowing movement
     private bool goForth = true;
+
+    // External script that implements physical movement
+    [SerializeField]
+    private CharacterMovement characterMovement;
 
     // Start is called before the first frame update
     void Start()
@@ -16,14 +23,19 @@ public class EnemyMovement : CharacterMovement
         targetPoint = patrolPointStart;
     }
 
-    protected override void Move()
+    void Update()
     {
-        velocity = rgbd.velocity;
+        Move();
+    }
+
+    private void Move()
+    {
+        Vector2 velocity = rgbd.velocity;
 
         float direction = rgbd.transform.position.x < targetPoint.position.x ? 1f : -1f;
         if (Mathf.Abs(rgbd.transform.position.x - targetPoint.position.x) > 0.5f)
         {
-            base.MoveOnPlatform(direction);
+            velocity = characterMovement.MoveOnPlatform(direction);
         }
         else
         {

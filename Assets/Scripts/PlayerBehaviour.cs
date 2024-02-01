@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerBehaviour : MonoBehaviour
 {
     // Parameters for behaviour
@@ -20,6 +21,8 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private int health = 3;
 
+    private List<Item> inventory = new List<Item>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +34,15 @@ public class PlayerBehaviour : MonoBehaviour
     {
 
         TickTimers();
-
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Debug.Log("Inventaire :");
+            foreach (var i in inventory)
+            {
+                Debug.Log(i.letter);
+                Debug.Log(i.flavorText);
+            }
+        }
     }
 
     private void TickTimers()
@@ -84,5 +95,10 @@ public class PlayerBehaviour : MonoBehaviour
     public bool IsAlive()
     {
         return health > 0;
+    }
+
+    public void AddItem(Item item)
+    {
+        inventory.Add(item);
     }
 }

@@ -45,7 +45,11 @@ public class EnemyMovement : MonoBehaviour
         {
             goForth = !goForth;
             targetPoint = goForth ? patrolPointStart : patrolPointEnd;
-            velocity.x = 0f;
+            // Enemy will turn around instantly on normal ground
+            if (characterMovement.GetDeceleratingFactor() >= 1f)
+            {
+                velocity.x = 0f;
+            }
         }
 
         rgbd.velocity = velocity;

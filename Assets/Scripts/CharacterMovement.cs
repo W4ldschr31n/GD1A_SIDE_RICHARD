@@ -48,12 +48,12 @@ public class CharacterMovement : MonoBehaviour
 
         bool wantToMove = direction != 0f;
         bool needToAccelerate = (
-            desiredVelocity < 0f && velocity.x > desiredVelocity
+            desiredVelocity < 0f && velocity.x > desiredVelocity && velocity.x < 0f
             ||
-            desiredVelocity > 0f && velocity.x < desiredVelocity
+            desiredVelocity > 0f && velocity.x < desiredVelocity && velocity.x > 0f
         );
         // Acceleration of the character
-        if (wantToMove && needToAccelerate)
+        if (needToAccelerate)
         {
             desiredAcceleration = baseAcceleration * acceleratingFactor;
         }
@@ -181,6 +181,16 @@ public class CharacterMovement : MonoBehaviour
         {
             isNearWall = false;
         }
+    }
+
+    public float GetAcceleratingFactor()
+    {
+        return acceleratingFactor;
+    }
+
+    public float GetDeceleratingFactor()
+    {
+        return deceleratingFactor;
     }
 
     public void SetAcceleratingFactor(float newAcceleratingFactor)

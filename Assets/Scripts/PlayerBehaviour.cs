@@ -56,7 +56,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (remainingIFrames <= 0)
         {
             canGetHit = true;
-            sprite.color = Color.green;
+            sprite.color = Color.white;
         }
     }
 

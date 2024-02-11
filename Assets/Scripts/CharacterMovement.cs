@@ -19,6 +19,8 @@ public class CharacterMovement : MonoBehaviour
     private float deceleratingFactor = 1f;
     [SerializeField]
     protected Rigidbody2D rgbd;
+    [SerializeField]
+    private Animator animator;
 
     // State allowing movement
     private bool isOnGround = false;
@@ -111,6 +113,7 @@ public class CharacterMovement : MonoBehaviour
         // Simple jump
         if (isOnGround)
         {
+            animator.SetTrigger("Jumping");
             velocity.y = jumpImpulse;
         }
         // Wall jump
@@ -149,6 +152,7 @@ public class CharacterMovement : MonoBehaviour
                 if (collision.GetContact(i).normal.y >= 0.5f)
                 {
                     isOnGround = true;
+                    animator.SetBool("InAir", false);
                     doubleJump = true;
                     break;
                 }
@@ -175,6 +179,7 @@ public class CharacterMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isOnGround = false;
+            animator.SetBool("InAir", true);
         }
         // Character detached from a wall
         else if (collision.gameObject.CompareTag("Wall"))

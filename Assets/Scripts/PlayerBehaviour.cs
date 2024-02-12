@@ -67,7 +67,7 @@ public class PlayerBehaviour : MonoBehaviour
             canGetHit = false;
             remainingIFrames = iFrames;
             sprite.color = Color.gray;
-            rgbd.velocity = new Vector2(normal.x * -10, 10);
+            rgbd.velocity = new Vector2(normal.x * -6, 6);
             LoseHealth(damage);
         }
     }

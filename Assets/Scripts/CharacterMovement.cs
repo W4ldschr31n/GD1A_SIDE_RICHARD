@@ -18,7 +18,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField]
     private float deceleratingFactor = 1f;
     [SerializeField]
-    protected Rigidbody2D rgbd;
+    private Rigidbody2D rgbd;
     [SerializeField]
     private Animator animator;
 
@@ -28,7 +28,7 @@ public class CharacterMovement : MonoBehaviour
     private bool doubleJump = false;
 
     // Data indicating how to move
-    protected float wallJumpX;
+    private float wallJumpX;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +39,7 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+    
     }
 
     public Vector2 MoveOnPlatform(float direction, Vector2 velocity)
@@ -113,7 +113,7 @@ public class CharacterMovement : MonoBehaviour
         // Simple jump
         if (isOnGround)
         {
-            animator.SetTrigger("Jumping");
+            // animator.SetTrigger("Jumping");
             velocity.y = jumpImpulse;
         }
         // Wall jump
@@ -152,7 +152,7 @@ public class CharacterMovement : MonoBehaviour
                 if (collision.GetContact(i).normal.y >= 0.5f)
                 {
                     isOnGround = true;
-                    animator.SetBool("InAir", false);
+                    // animator.SetBool("InAir", false);
                     doubleJump = true;
                     break;
                 }
@@ -179,7 +179,7 @@ public class CharacterMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isOnGround = false;
-            animator.SetBool("InAir", true);
+            // animator.SetBool("InAir", true);
         }
         // Character detached from a wall
         else if (collision.gameObject.CompareTag("Wall"))

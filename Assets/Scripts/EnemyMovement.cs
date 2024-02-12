@@ -8,6 +8,8 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rgbd;
     [SerializeField]
+    private SpriteRenderer sprite;
+    [SerializeField]
     private Transform patrolPointStart, patrolPointEnd;
     private Transform targetPoint;
 
@@ -30,6 +32,7 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         Move();
+        sprite.flipX = goForth;
     }
 
     private void Move()

@@ -7,6 +7,10 @@ public class PlayerMovement : MonoBehaviour
     // Parameters for movement
     [SerializeField]
     private Rigidbody2D rgbd;
+    [SerializeField]
+    private SpriteRenderer sprite;
+    [SerializeField]
+    private Animator animator;
 
     // Data for movement
     private Vector2 velocity;
@@ -24,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Move();
+        UpdateAnimation();
     }
     private void Move()
     {
@@ -31,6 +36,13 @@ public class PlayerMovement : MonoBehaviour
         velocity = rgbd.velocity;
 
         float direction = Input.GetKey(KeyCode.LeftArrow) ? -1f : (Input.GetKey(KeyCode.RightArrow) ? 1f : 0f);
+        if(direction > 0f)
+        {
+            sprite.flipX = false;
+        } else if(direction < 0f)
+        {
+            sprite.flipX = true;
+        }
         // Move on a platform
         if (characterMovement.GetIsOnGround())
         {
@@ -58,6 +70,24 @@ public class PlayerMovement : MonoBehaviour
 
         // Effectively move the body
         rgbd.velocity = velocity;
+    }
+
+    private void UpdateAnimation()
+    {
+        if (characterMovement.GetIsOnGround())
+        {
+            animator.SetBool("Walking", velocity.x != 0f);
+        }
+        // Is near a wall
+        else if (characterMovement.GetIsNearWall())
+        {
+            // TODO
+        }
+        // Is in the air
+        else
+        {
+            // animator.SetBool("InAir", true);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

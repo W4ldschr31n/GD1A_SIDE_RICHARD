@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -979973942, guid: 6145d61b80cd9b74ca424941faf1657b, type: 3}
+  m_Sprite: {fileID: 1090231018, guid: 97c253b4f4d14de419618065d8748297, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -171,7 +171,7 @@ MonoBehaviour:
   airControl: 0.5
   acceleratingFactor: 1
   deceleratingFactor: 1
-  rgbd: {fileID: 0}
+  rgbd: {fileID: 4847194814447424922}
   animator: {fileID: 100994765475344336}
 --- !u!114 &5777201927638609320
 MonoBehaviour:
@@ -201,6 +201,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rgbd: {fileID: 4847194814447424922}
+  sprite: {fileID: 209446477824164342}
+  animator: {fileID: 100994765475344336}
   characterMovement: {fileID: 6829121086998764277}
 --- !u!114 &5813060590117286110
 MonoBehaviour:

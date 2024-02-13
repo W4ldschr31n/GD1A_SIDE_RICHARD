@@ -29,11 +29,12 @@ public class CharacterMovement : MonoBehaviour
 
     // Data indicating how to move
     private float wallJumpX;
+    private int platformMask;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        platformMask = LayerMask.NameToLayer("Platform");
     }
 
     // Update is called once per frame
@@ -72,7 +73,7 @@ public class CharacterMovement : MonoBehaviour
 
     public Vector2 MoveNearWall(float direction, Vector2 velocity)
     {
-        if (direction == -wallJumpX) {
+        if (direction == -wallJumpX && velocity.y <= 0f) {
             velocity.y = -1f * Time.deltaTime;
             direction = 0f;
         }
@@ -134,57 +135,63 @@ public class CharacterMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        HandleCollision(collision);
+        if(collision.gameObject.layer == platformMask)
+        {
+            HandlePlatformCollision(collision);
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
-    {
-        HandleCollision(collision);
+    {        
+        if (collision.gameObject.layer == platformMask)
+        {
+            HandlePlatformCollision(collision);
+        }
     }
 
-    private void HandleCollision(Collision2D collision)
+    private void HandlePlatformCollision(Collision2D collision)
     {
+        // Reference point is the first point of contact
+        Vector2 normal = collision.GetContact(0).normal;
         // Character is on the ground
-        if (collision.gameObject.CompareTag("Ground"))
+        if (normal.y >= 0.9f)
         {
-            for (int i = 0; i < collision.contactCount; i++)
-            {
-                if (collision.GetContact(i).normal.y >= 0.5f)
-                {
-                    isOnGround = true;
-                    // animator.SetBool("InAir", false);
-                    doubleJump = true;
-                    break;
-                }
-            }
+            Debug.Log("on ground");
+            Debug.Log(collision.gameObject);
+            isOnGround = true;
+            // animator.SetBool("InAir", false);
+            doubleJump = true;
         }
         // Character is hugging a wall
-        else if (collision.gameObject.CompareTag("Wall"))
+        else if (Mathf.Abs(normal.y) <= 0.1f)
         {
-            for (int i = 0; i < collision.contactCount; i++)
-            {
-                if (Mathf.Abs(collision.GetContact(i).normal.y) <= 0.1f)
-                {
-                    isNearWall = true;
-                    wallJumpX = collision.GetContact(i).normal.x;
-                    break;
-                }
-            }
+            //Debug.Log("on wall");
+            isNearWall = true;
+            wallJumpX = normal.x;
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        // Character left the ground
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.layer == platformMask)
         {
+            HandlePlatformCollisionExit(collision);
+        }
+    }
+
+    private void HandlePlatformCollisionExit(Collision2D collision)
+    {
+        // Character detached from a wall
+        if (isNearWall)
+        {
+            Debug.Log("left wall");
+            isNearWall = false;
+        }
+        if (isOnGround)
+        {
+            Debug.Log("left ground");
             isOnGround = false;
             // animator.SetBool("InAir", true);
-        }
-        // Character detached from a wall
-        else if (collision.gameObject.CompareTag("Wall"))
-        {
-            isNearWall = false;
         }
     }
 

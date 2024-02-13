@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1246854524232977916}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.94, y: -0.34, z: 0}
+  m_LocalPosition: {x: -4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 1284609362627693847}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.15, y: -0.19, z: 0}
+  m_LocalPosition: {x: 4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 4599390230007702037}
   - component: {fileID: 4703683719812576504}
   - component: {fileID: 1906747899179989517}
-  - component: {fileID: 3524422028958776760}
+  - component: {fileID: 4745334242338332558}
   - component: {fileID: 5092348631747832531}
   - component: {fileID: 7202523448709772221}
   - component: {fileID: 7328754195210848587}
@@ -149,7 +149,7 @@ Transform:
   m_GameObject: {fileID: 4258776423874337824}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.017, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -234,8 +234,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &3524422028958776760
-BoxCollider2D:
+--- !u!70 &4745334242338332558
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -266,19 +266,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.12754053, y: -0.045589447}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.3333334, y: 2}
-    newSize: {x: 1, y: 1.5}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.9220798, y: 1.9410017}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.72154534, y: 1.9402279}
+  m_Direction: 0
 --- !u!114 &5092348631747832531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,8 +283,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rgbd: {fileID: 1906747899179989517}
   sprite: {fileID: 4703683719812576504}
-  patrolPointStart: {fileID: 148238238920384309}
-  patrolPointEnd: {fileID: 5985730327554354556}
+  patrolPointLeft: {fileID: 148238238920384309}
+  patrolPointRight: {fileID: 5985730327554354556}
   characterMovement: {fileID: 7328754195210848587}
 --- !u!114 &7202523448709772221
 MonoBehaviour:
@@ -308,7 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b1b5518a1aa9245a77bba8949d574e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitbox: {fileID: 3524422028958776760}
+  hitbox: {fileID: 0}
   damage: 1
 --- !u!114 &7328754195210848587
 MonoBehaviour:

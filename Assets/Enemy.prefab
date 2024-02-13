@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b1b5518a1aa9245a77bba8949d574e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitbox: {fileID: 0}
+  hitbox: {fileID: 3524422028958776760}
   damage: 1
 --- !u!114 &7328754195210848587
 MonoBehaviour:

@@ -156,8 +156,6 @@ public class CharacterMovement : MonoBehaviour
         // Character is on the ground
         if (normal.y >= 0.9f)
         {
-            Debug.Log("on ground");
-            Debug.Log(collision.gameObject);
             isOnGround = true;
             // animator.SetBool("InAir", false);
             doubleJump = true;
@@ -165,7 +163,6 @@ public class CharacterMovement : MonoBehaviour
         // Character is hugging a wall
         else if (Mathf.Abs(normal.y) <= 0.1f)
         {
-            //Debug.Log("on wall");
             isNearWall = true;
             wallJumpX = normal.x;
         }
@@ -184,12 +181,10 @@ public class CharacterMovement : MonoBehaviour
         // Character detached from a wall
         if (isNearWall)
         {
-            Debug.Log("left wall");
             isNearWall = false;
         }
         if (isOnGround)
         {
-            Debug.Log("left ground");
             isOnGround = false;
             // animator.SetBool("InAir", true);
         }

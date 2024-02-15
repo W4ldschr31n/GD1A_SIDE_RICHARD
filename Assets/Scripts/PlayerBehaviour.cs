@@ -10,6 +10,8 @@ public class PlayerBehaviour : MonoBehaviour
     private Rigidbody2D rgbd;
     [SerializeField]
     private SpriteRenderer sprite;
+    [SerializeField]
+    private PlayerHealthBar healthBar;
 
     // States allowing behaviour
     private bool canGetHit = true;
@@ -60,7 +62,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    public void GetHit(int damage, Vector2 normal)
+    public void GetHit(Vector2 normal)
     {
         if (canGetHit)
         {
@@ -68,25 +70,31 @@ public class PlayerBehaviour : MonoBehaviour
             remainingIFrames = iFrames;
             sprite.color = Color.gray;
             rgbd.velocity = new Vector2(normal.x * -6, 6);
-            LoseHealth(damage);
+            LoseHealth();
         }
     }
 
     private void Die()
     {
+        healthBar.Die();
         transform.position = Vector2.zero;
         health = maxHealth;
     }
 
-    public void GainHealth(int heal)
+    public void FullHeal()
     {
-        health = Mathf.Min(maxHealth, health + heal);
+        health = maxHealth;
+        healthBar.GainHealth();
     }
 
-    public void LoseHealth(int damage)
+    public void LoseHealth()
     {
-        health = Mathf.Max(health-damage, 0);
-        if (!IsAlive())
+        health = Mathf.Max(health - 1, 0);
+        if (IsAlive())
+        {
+            healthBar.LoseHealth();
+        }
+        else
         {
             Die();
         }

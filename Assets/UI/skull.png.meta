@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 16ad7b98f140b9f4c9f65e6e0c0a6c0f
+guid: 9e254f181407ace408a13bd671950882
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,64 +110,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: heart_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 128
-        width: 192
-        height: 64
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: da207d861c3a54448bee9cff7e9974ee
-      internalID: -349745929
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: heart_1
+      name: skull_0
       rect:
         serializedVersion: 2
         x: 0
         y: 64
         width: 192
         height: 64
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 65d2662a3f1d50b44be4d1e4118a717b
-      internalID: 583863624
+      spriteID: 40b184dd867d02c4096f78e82428c93a
+      internalID: -1391333042
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: heart_2
+      name: skull_1
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 192
         height: 64
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ccc86eaa6d63f5b409deb58f796f99c1
-      internalID: 1051204093
+      spriteID: effde226b5467214da2849413ebc7672
+      internalID: -782974521
       vertices: []
       indices: 
       edges: []
@@ -183,9 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      heart_0: -349745929
-      heart_1: 583863624
-      heart_2: 1051204093
+      skull_0: -1391333042
+      skull_1: -782974521
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

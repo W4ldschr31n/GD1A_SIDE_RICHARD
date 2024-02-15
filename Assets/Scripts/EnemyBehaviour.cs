@@ -6,8 +6,6 @@ public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField]
     private Collider2D hitbox;
-    [SerializeField]
-    private int damage = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +31,7 @@ public class EnemyBehaviour : MonoBehaviour
             // If the player is below or next to the enemy, the former get hit
             else
             {
-                collision.gameObject.GetComponent<PlayerBehaviour>().GetHit(damage, contact.normal);
+                collision.gameObject.GetComponent<PlayerBehaviour>().GetHit(contact.normal);
             }
         }
     }

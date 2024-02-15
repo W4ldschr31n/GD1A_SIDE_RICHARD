@@ -21,10 +21,7 @@ public class Collectible : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.CompareTag("Player"))
-        {
-            collider.gameObject.GetComponent<PlayerBehaviour>().AddItem(item);
-            Destroy(gameObject);
-        }
+        collider.gameObject.GetComponent<PlayerBehaviour>().AddItem(item);
+        Destroy(gameObject);
     }
 }

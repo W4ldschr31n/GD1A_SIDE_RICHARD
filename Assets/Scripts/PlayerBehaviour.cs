@@ -22,6 +22,8 @@ public class PlayerBehaviour : MonoBehaviour
     private int maxHealth = 3;
     [SerializeField]
     private int health = 3;
+    [SerializeField]
+    private OverheadText overheadText;
 
     private List<Item> inventory = new List<Item>();
 
@@ -108,5 +110,6 @@ public class PlayerBehaviour : MonoBehaviour
     public void AddItem(Item item)
     {
         inventory.Add(item);
+        overheadText.ShowMessage(item.flavorText, 3);
     }
 }

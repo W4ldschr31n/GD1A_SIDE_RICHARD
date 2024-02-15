@@ -28,7 +28,7 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 Die();
             }
-            // If the player is below or next to the enemy, the former get hit
+            // If the player is below or next to the enemy, the former gets hit
             else
             {
                 collision.gameObject.GetComponent<PlayerBehaviour>().GetHit(contact.normal);

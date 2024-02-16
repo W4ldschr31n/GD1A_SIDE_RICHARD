@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    // Parameters for behaviour
+    // Components
     [SerializeField]
     private Rigidbody2D rgbd;
     [SerializeField]
@@ -65,6 +65,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             canGetHit = true;
             sprite.color = Color.white;
+            rgbd.excludeLayers = LayerMask.GetMask("Nothing");
         }
     }
 
@@ -73,6 +74,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (canGetHit)
         {
             canGetHit = false;
+            rgbd.excludeLayers = LayerMask.GetMask("Enemy");
             remainingIFrames = iFrames;
             sprite.color = Color.gray;
             rgbd.velocity = new Vector2(normal.x * -6, 6);

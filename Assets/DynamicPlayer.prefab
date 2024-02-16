@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 209446477824164342}
   - component: {fileID: 4847194814447424922}
   - component: {fileID: 6300817390571378441}
-  - component: {fileID: 6829121086998764277}
   - component: {fileID: 5777201927638609320}
   - component: {fileID: 2730888024090022155}
   - component: {fileID: 5813060590117286110}
@@ -155,26 +154,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.9, y: 2}
   m_Direction: 0
---- !u!114 &6829121086998764277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8916970786365089208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 739fb988c696f7446b5c9454a81dd83a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseAcceleration: 20
-  baseSpeed: 10
-  jumpHeight: 2
-  airControl: 0.5
-  acceleratingFactor: 1
-  deceleratingFactor: 1
-  rgbd: {fileID: 4847194814447424922}
-  animator: {fileID: 100994765475344336}
 --- !u!114 &5777201927638609320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,8 +169,9 @@ MonoBehaviour:
   rgbd: {fileID: 4847194814447424922}
   sprite: {fileID: 209446477824164342}
   healthBar: {fileID: 7412291298180996016}
-  health: 3
   overheadText: {fileID: 2898951760502087201}
+  writingsFoundText: {fileID: 0}
+  health: 3
 --- !u!114 &2730888024090022155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +187,7 @@ MonoBehaviour:
   rgbd: {fileID: 4847194814447424922}
   sprite: {fileID: 209446477824164342}
   animator: {fileID: 100994765475344336}
-  characterMovement: {fileID: 6829121086998764277}
+  characterMovement: {fileID: 5813060590117286110}
 --- !u!114 &5813060590117286110
 MonoBehaviour:
   m_ObjectHideFlags: 0

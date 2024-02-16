@@ -36,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
         velocity = rgbd.velocity;
 
         float direction = Input.GetKey(KeyCode.LeftArrow) ? -1f : (Input.GetKey(KeyCode.RightArrow) ? 1f : 0f);
+
+        // Flip as we're changing direction, else keep previous orientation
         if(direction > 0f)
         {
             sprite.flipX = false;
@@ -81,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         // Is near a wall
         else if (characterMovement.GetIsNearWall())
         {
-            // TODO
+            // animator.SetBool("WallHug", true);
         }
         // Is in the air
         else
@@ -90,18 +92,4 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            for (int i = 0; i < collision.contactCount; i++)
-            {
-                if (Mathf.Abs(collision.GetContact(i).normal.y) <= 0.1f)
-                {
-                    // Hitting a wall stops the movement
-                    velocity.x = 0f;
-                }
-            }
-        }
-    }
 }

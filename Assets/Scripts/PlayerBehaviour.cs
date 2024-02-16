@@ -15,9 +15,9 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private PlayerHealthBar healthBar;
     [SerializeField]
-    private OverheadText overheadText;
-    [SerializeField]
     private Text writingsFoundText;
+    [SerializeField]
+    private OverheadText overheadText;
 
     // States allowing behaviour
     private bool canGetHit = true;

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -10,8 +10,14 @@ public class PlayerBehaviour : MonoBehaviour
     private Rigidbody2D rgbd;
     [SerializeField]
     private SpriteRenderer sprite;
+
+    // Composition
     [SerializeField]
     private PlayerHealthBar healthBar;
+    [SerializeField]
+    private OverheadText overheadText;
+    [SerializeField]
+    private Text writingsFoundText;
 
     // States allowing behaviour
     private bool canGetHit = true;
@@ -22,8 +28,6 @@ public class PlayerBehaviour : MonoBehaviour
     private int maxHealth = 3;
     [SerializeField]
     private int health = 3;
-    [SerializeField]
-    private OverheadText overheadText;
 
     private List<Item> inventory = new List<Item>();
 
@@ -111,5 +115,6 @@ public class PlayerBehaviour : MonoBehaviour
     {
         inventory.Add(item);
         overheadText.ShowMessage(item.flavorText, 3);
+        writingsFoundText.text = "Écrits trouvés : " + inventory.Count;
     }
 }

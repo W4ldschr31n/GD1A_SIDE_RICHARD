@@ -10,33 +10,50 @@ public class OverheadText : MonoBehaviour
     [SerializeField]
     private Image panel;
 
+    // State for behaviour
     private float timeToDisplay;
+    private bool isTimed = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        text.enabled = false;
-        panel.enabled = false;
+        Hide();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(timeToDisplay > 0f)
+        if (isTimed)
+        {
+            TickDownTimer();
+        }
+        
+    }
+
+    private void TickDownTimer()
+    {
+        if (timeToDisplay > 0f)
         {
             timeToDisplay -= Time.deltaTime;
         }
         else
         {
-            text.enabled = false;
-            panel.enabled = false;
+            Hide();
         }
     }
 
-    public void ShowMessage(string message, float duration)
+    public void ShowMessage(string message, float duration = 0f)
     {
         text.enabled = true;
         panel.enabled = true;
-        timeToDisplay = duration;
         text.text = message;
+        isTimed = duration > 0f;
+        timeToDisplay = duration;
+    }
+
+    public void Hide()
+    {
+        text.enabled = false;
+        panel.enabled = false;
     }
 }

@@ -82,7 +82,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    private void Die()
+    public void Die()
     {
         healthBar.Die();
         transform.position = Vector2.zero;

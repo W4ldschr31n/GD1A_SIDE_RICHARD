@@ -20,7 +20,6 @@ public class Teleporter : MonoBehaviour
     void Update()
     {
         if (canInteract && Input.GetButtonDown("Fire1")){
-            Debug.Log("OSKOUR");
             playerBody.transform.position = exitLocation.position;
         }
     }

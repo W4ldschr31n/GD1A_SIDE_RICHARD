@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Didacticiel : MonoBehaviour
+public class TrapBehaviour : MonoBehaviour
 {
-    public string message;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,11 +18,6 @@ public class Didacticiel : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.gameObject.GetComponent<OverheadText>().ShowMessage(message);
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        collision.gameObject.GetComponent <OverheadText>().Hide();
+        collision.gameObject.GetComponent<PlayerBehaviour>().Die();
     }
 }

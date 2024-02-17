@@ -41,14 +41,14 @@ public class EnemyMovement : MonoBehaviour
 
         float direction = goForth ? 1f : -1f;
         if (Mathf.Abs(rgbd.transform.position.x - targetPoint.position.x) > 0.5f)
-        {
+        { // Still far away from the current patrol point
             velocity = characterMovement.MoveOnPlatform(direction, velocity);
         }
         else
-        {
+        { // Has to turn back
             goForth = !goForth;
             targetPoint = goForth ? patrolPointRight : patrolPointLeft;
-            // Enemy will turn around instantly on normal ground
+            // Enemy will turn around instantly on normal ground, intertia will occur on slippy ground
             if (characterMovement.GetDeceleratingFactor() >= 1f)
             {
                 velocity.x = 0f;

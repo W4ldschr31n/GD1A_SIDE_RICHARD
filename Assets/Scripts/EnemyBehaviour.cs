@@ -24,7 +24,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag("Player")) {
             ContactPoint2D contact = collision.GetContact(0);
             // If the player is above the enemy, the latter dies
-            if (contact.normal.y <= -0.9)
+            if (contact.normal.y <= -0.7)
             {
                 Die();
             }

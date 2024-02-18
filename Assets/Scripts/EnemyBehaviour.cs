@@ -6,6 +6,11 @@ public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField]
     private Collider2D hitbox;
+    [SerializeField]
+    private Rigidbody2D rgbd;
+
+    [SerializeField]
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -21,23 +26,22 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) {
+        if (collision.gameObject.CompareTag("Player"))
+        {
             ContactPoint2D contact = collision.GetContact(0);
-            // If the player is above the enemy, the latter dies
-            if (contact.normal.y <= -0.7)
-            {
-                Die();
-            }
-            // If the player is below or next to the enemy, the former gets hit
-            else
-            {
-                collision.gameObject.GetComponent<PlayerBehaviour>().GetHit(contact.normal);
-            }
+            collision.gameObject.GetComponent<PlayerBehaviour>().GetHit(contact.normal);
         }
     }
 
     public void Die()
     {
-        Destroy(gameObject);
+        hitbox.enabled = false;
+        rgbd.simulated = false;
+        animator.SetTrigger("Die");
+    }
+
+    public void Disappear()
+    {
+        Destroy(gameObject.transform.parent.gameObject);
     }
 }

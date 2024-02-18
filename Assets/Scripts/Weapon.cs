@@ -10,13 +10,6 @@ public class Weapon : MonoBehaviour
     private float length;
     [SerializeField]
     private LineRenderer line;
-    [SerializeField]
-    private Transform attackSpotLeft, attackSpotRight;
-    [SerializeField]
-    private SpriteRenderer playerSprite;
-    [SerializeField]
-    private Whip whip;
-
     private Vector2 grapplePoint;
 
     // Start is called before the first frame update
@@ -29,7 +22,6 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleWhipInput();
         HandleGrapplinInput();
         if (line.enabled)
         {
@@ -38,18 +30,6 @@ public class Weapon : MonoBehaviour
         }
 
         
-    }
-
-    private void HandleWhipInput()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            whip.Attack(playerSprite.flipX ? attackSpotLeft : attackSpotRight);
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            whip.Reset();
-        }
     }
 
     public void Reset()

@@ -7,40 +7,30 @@ public class Whip : MonoBehaviour
     [SerializeField]
     private Collider2D hitbox;
     [SerializeField]
-    private SpriteRenderer sprite;
+    private Transform attackSpotLeft, attackSpotRight;
+    [SerializeField]
+    private Animator animator;
+    [SerializeField]
+    private SpriteRenderer playerSprite;
 
-    private bool canAttack = true;
+    public bool canAttack = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        Reset();
+        hitbox.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public void Attack(Transform attackSpot)
-    {
-        if (canAttack)
+        transform.position = playerSprite.flipX ? attackSpotLeft.position : attackSpotRight.position;
+        if (Input.GetButtonDown("Fire1") && canAttack)
         {
-            transform.position = attackSpot.position;
-            hitbox.enabled = true;
-            sprite.enabled = true;
-            canAttack = false;
-            // Animation
+            animator.SetTrigger("Attack");
         }
     }
 
-    public void Reset()
-    {
-        hitbox.enabled = false;
-        sprite.enabled = false;
-        canAttack = true;
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -114,14 +114,15 @@ public class CharacterMovement : MonoBehaviour
         // Simple jump
         if (isOnGround)
         {
-            // animator.SetTrigger("Jumping");
             velocity.y = jumpImpulse;
+            animator.SetTrigger("Jumping");
         }
         // Wall jump
         else if (isNearWall)
         {
             velocity.x = wallJumpX * baseSpeed;
             velocity.y = jumpImpulse;
+            animator.SetTrigger("Jumping");
         }
         // Double jump
         else if (doubleJump)
@@ -157,7 +158,7 @@ public class CharacterMovement : MonoBehaviour
         if (normal.y >= 0.9f)
         {
             isOnGround = true;
-            // animator.SetBool("InAir", false);
+            animator.SetBool("InAir", false);
             doubleJump = true;
         }
         // Character is hugging a wall
@@ -186,7 +187,7 @@ public class CharacterMovement : MonoBehaviour
         if (isOnGround)
         {
             isOnGround = false;
-            // animator.SetBool("InAir", true);
+            animator.SetBool("InAir", true);
         }
     }
 

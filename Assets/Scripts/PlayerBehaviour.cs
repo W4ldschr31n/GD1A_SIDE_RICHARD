@@ -65,7 +65,8 @@ public class PlayerBehaviour : MonoBehaviour
         {
             canGetHit = true;
             sprite.color = Color.white;
-            rgbd.excludeLayers = LayerMask.GetMask("Nothing");
+            // Remove enemy layer from excluded
+            rgbd.excludeLayers &= ~LayerMask.GetMask("Enemy");
         }
     }
 
@@ -74,9 +75,11 @@ public class PlayerBehaviour : MonoBehaviour
         if (canGetHit)
         {
             canGetHit = false;
-            rgbd.excludeLayers = LayerMask.GetMask("Enemy");
+            // Add enemy layer to excluded
+            rgbd.excludeLayers |= LayerMask.GetMask("Enemy");
             remainingIFrames = iFrames;
             sprite.color = Color.gray;
+            // Get bumped in the opposite direction
             rgbd.velocity = new Vector2(normal.x * -6, 6);
             LoseHealth();
         }
@@ -87,6 +90,7 @@ public class PlayerBehaviour : MonoBehaviour
         healthBar.Die();
         transform.position = Vector2.zero;
         health = maxHealth;
+        GetComponent<Weapon>().Reset();
     }
 
     public void FullHeal()

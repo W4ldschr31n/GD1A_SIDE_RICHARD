@@ -34,8 +34,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // Prepare to move the body
         velocity = rgbd.velocity;
-
-        float direction = Input.GetKey(KeyCode.LeftArrow) ? -1f : (Input.GetKey(KeyCode.RightArrow) ? 1f : 0f);
+        float direction = Input.GetAxisRaw("Horizontal");
 
         // Flip as we're changing direction, else keep previous orientation
         if(direction > 0f)

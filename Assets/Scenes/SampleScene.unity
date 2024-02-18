@@ -6030,7 +6030,7 @@ PrefabInstance:
     - target: {fileID: 9027004108908405671, guid: a40b97f77aacd4d4bb2f4102f52ba247, type: 3}
       propertyPath: playerBody
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1230047455}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6052,6 +6052,10 @@ PrefabInstance:
       propertyPath: item
       value: 
       objectReference: {fileID: 11400000, guid: 72159c9e316bf194ab03d9b2d1a91098, type: 2}
+    - target: {fileID: 4144837845475795315, guid: fe0da2330452aed4da3c48c5d26458c6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 30cd0daef406cc5448ac57b6ef0937b8, type: 3}
     - target: {fileID: 8138238200407290772, guid: fe0da2330452aed4da3c48c5d26458c6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.99
@@ -6898,6 +6902,11 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!50 &1230047455 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 4847194814447424922, guid: bbf0ba9b003e1884195c003a80dfdc77, type: 3}
+  m_PrefabInstance: {fileID: 1995863540}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1235167586
 GameObject:
   m_ObjectHideFlags: 0
@@ -7074,6 +7083,10 @@ PrefabInstance:
       propertyPath: item
       value: 
       objectReference: {fileID: 11400000, guid: 8a35973a2e090b144a46f44a29ffaecf, type: 2}
+    - target: {fileID: 4144837845475795315, guid: fe0da2330452aed4da3c48c5d26458c6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a8e54afeb422c964ebd92e71355207eb, type: 3}
     - target: {fileID: 8138238200407290772, guid: fe0da2330452aed4da3c48c5d26458c6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.84
@@ -7272,6 +7285,10 @@ PrefabInstance:
       propertyPath: item
       value: 
       objectReference: {fileID: 11400000, guid: a8f0668002ba3364bab97338cc86ed50, type: 2}
+    - target: {fileID: 4144837845475795315, guid: fe0da2330452aed4da3c48c5d26458c6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 30cd0daef406cc5448ac57b6ef0937b8, type: 3}
     - target: {fileID: 8138238200407290772, guid: fe0da2330452aed4da3c48c5d26458c6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.11
@@ -7467,6 +7484,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1228530470373890706, guid: fe0da2330452aed4da3c48c5d26458c6, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2773931560516073315, guid: fe0da2330452aed4da3c48c5d26458c6, type: 3}
       propertyPath: m_Name
       value: Collectible
@@ -7475,6 +7496,10 @@ PrefabInstance:
       propertyPath: item
       value: 
       objectReference: {fileID: 11400000, guid: 647209b4cc7547a49b51feb548d33cfc, type: 2}
+    - target: {fileID: 4144837845475795315, guid: fe0da2330452aed4da3c48c5d26458c6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 30cd0daef406cc5448ac57b6ef0937b8, type: 3}
     - target: {fileID: 8138238200407290772, guid: fe0da2330452aed4da3c48c5d26458c6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.26

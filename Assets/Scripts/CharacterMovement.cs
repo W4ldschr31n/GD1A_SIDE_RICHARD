@@ -166,6 +166,7 @@ public class CharacterMovement : MonoBehaviour
         {
             isNearWall = true;
             wallJumpX = normal.x;
+            animator.SetBool("WallHugging", true);
         }
     }
 
@@ -173,16 +174,17 @@ public class CharacterMovement : MonoBehaviour
     {
         if (collision.gameObject.layer == platformMask)
         {
-            HandlePlatformCollisionExit(collision);
+            HandlePlatformCollisionExit();
         }
     }
 
-    private void HandlePlatformCollisionExit(Collision2D collision)
+    private void HandlePlatformCollisionExit()
     {
         // Character detached from a wall
         if (isNearWall)
         {
             isNearWall = false;
+            animator.SetBool("WallHugging", false);
         }
         if (isOnGround)
         {

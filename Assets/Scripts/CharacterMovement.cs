@@ -49,7 +49,6 @@ public class CharacterMovement : MonoBehaviour
         float desiredAcceleration;
         float desiredVelocity = direction * desiredSpeed;
 
-        bool wantToMove = direction != 0f;
         bool needToAccelerate = (
             desiredVelocity < 0f && velocity.x > desiredVelocity && velocity.x < 0f
             ||
@@ -73,7 +72,7 @@ public class CharacterMovement : MonoBehaviour
 
     public Vector2 MoveNearWall(float direction, Vector2 velocity)
     {
-        if (direction == -wallJumpX && velocity.y <= 0f) {
+        if (direction == -wallJumpX && velocity.y < 0f) {
             velocity.y = -1f * Time.deltaTime;
             direction = 0f;
         }
@@ -158,7 +157,9 @@ public class CharacterMovement : MonoBehaviour
         if (normal.y >= 0.9f)
         {
             isOnGround = true;
+            isNearWall = false;
             animator.SetBool("InAir", false);
+            animator.SetBool("WallHugging", false);
             doubleJump = true;
         }
         // Character is hugging a wall

@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81de0ac381e62e9498b1f5733e2ee81b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: Teleport to...
+  message: "E/Bouton droit pour se t\xE9l\xE9porter"
 --- !u!1 &4201201432298963332
 GameObject:
   m_ObjectHideFlags: 0

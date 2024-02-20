@@ -19,7 +19,7 @@ public class Teleporter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canInteract && Input.GetButtonDown("Fire1")){
+        if (canInteract && Input.GetButtonDown("Use")){
             playerBody.transform.position = exitLocation.position;
         }
     }

@@ -61,7 +61,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
         // Reset player position
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetButtonDown("Restart"))
             Respawn();
     }
 

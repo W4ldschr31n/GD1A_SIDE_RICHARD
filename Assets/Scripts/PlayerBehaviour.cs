@@ -27,7 +27,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     // States allowing behaviour
     private bool canGetHit = true;
-    private bool hasWhip = true;
+    private bool hasWhip = false;
 
     // Data indicating how to behave
     private float iFrames = 1.5f;

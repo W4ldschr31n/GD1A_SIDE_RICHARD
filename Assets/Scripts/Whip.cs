@@ -24,13 +24,17 @@ public class Whip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Align the weapon with the direction the player is facing
         transform.position = playerSprite.flipX ? attackSpotLeft.position : attackSpotRight.position;
+    }
+
+    public void HandleInputs()
+    {
         if (Input.GetButtonDown("Fire1") && canAttack)
         {
             animator.SetTrigger("Attack");
         }
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

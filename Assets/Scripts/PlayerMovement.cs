@@ -27,10 +27,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Move();
-        UpdateAnimation();
+
     }
-    private void Move()
+    public void HandleInputs()
     {
         // Prepare to move the body
         velocity = rgbd.velocity;
@@ -65,29 +64,31 @@ public class PlayerMovement : MonoBehaviour
             velocity = characterMovement.Jump(velocity);
         }
 
-        // Reset player position
-        if (Input.GetKeyDown(KeyCode.R))
-            rgbd.transform.position = Vector2.zero;
-
         // Effectively move the body
         rgbd.velocity = velocity;
     }
 
-    private void UpdateAnimation()
+    public void UpdateAnimation()
     {
         if (characterMovement.GetIsOnGround())
         {
             animator.SetBool("Walking", velocity.x != 0f);
+            animator.SetBool("WallHugging", false);
+            animator.SetBool("InAir", false);
         }
         // Is near a wall
         else if (characterMovement.GetIsNearWall())
         {
-            // animator.SetBool("WallHug", true);
+            animator.SetBool("Walking", false);
+            animator.SetBool("WallHugging", true);
+            animator.SetBool("InAir", true);
         }
         // Is in the air
         else
         {
-            // animator.SetBool("InAir", true);
+            animator.SetBool("Walking", false);
+            animator.SetBool("WallHugging", false);
+            animator.SetBool("InAir", true);
         }
     }
 

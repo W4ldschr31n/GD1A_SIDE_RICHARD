@@ -19,11 +19,11 @@ public class MessageWhenNearby : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.gameObject.GetComponent<OverheadText>().ShowMessage(message);
+        collision.gameObject.GetComponent<PlayerBehaviour>().ShowOverheadMessage(message);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        collision.gameObject.GetComponent <OverheadText>().Hide();
+        collision.gameObject.GetComponent<PlayerBehaviour>().HideOverheadMessage();
     }
 }

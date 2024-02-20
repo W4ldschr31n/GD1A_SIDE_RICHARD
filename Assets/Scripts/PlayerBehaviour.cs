@@ -10,6 +10,8 @@ public class PlayerBehaviour : MonoBehaviour
     private Rigidbody2D rgbd;
     [SerializeField]
     private SpriteRenderer sprite;
+    [SerializeField]
+    private Animator animator;
 
     // Composition
     [SerializeField]
@@ -17,10 +19,15 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private Text writingsFoundText;
     [SerializeField]
-    private OverheadText overheadText;
+    private DisplayableTextPanel overheadTextPanel, gameStateTextPanel;
+    [SerializeField]
+    private PlayerMovement playerMovement;
+    [SerializeField]
+    private Whip whip;
 
     // States allowing behaviour
     private bool canGetHit = true;
+    private bool hasWhip = true;
 
     // Data indicating how to behave
     private float iFrames = 1.5f;
@@ -40,17 +47,22 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        // Tick down timers
         TickTimers();
-        if (Input.GetKeyDown(KeyCode.I))
+
+        // Update behaviour with inputs
+        if (IsAlive())
         {
-            Debug.Log("Inventaire :");
-            foreach (var i in inventory)
+            playerMovement.HandleInputs();
+            playerMovement.UpdateAnimation();
+            if (hasWhip)
             {
-                Debug.Log(i.letter);
-                Debug.Log(i.flavorText);
+                whip.HandleInputs();
             }
         }
+        // Reset player position
+        if (Input.GetKeyDown(KeyCode.R))
+            Respawn();
     }
 
     private void TickTimers()
@@ -70,6 +82,15 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    private void Respawn()
+    {
+        HideGameStateMessage();
+        rgbd.transform.position = Vector2.zero;
+        rgbd.velocity = Vector2.zero;
+        animator.SetBool("Alive", true);
+        FullHeal();
+    }
+
     public void GetHit(Vector2 normal)
     {
         if (canGetHit)
@@ -87,16 +108,23 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void Die()
     {
+        health = 0; // To make sure we have no health in case of instant death
         healthBar.Die();
-        transform.position = Vector2.zero;
-        health = maxHealth;
-        GetComponent<Weapon>().Reset();
+        animator.SetTrigger("Die");
+        animator.SetBool("Alive", false);
+        GetComponent<Grappin>().Reset();
+        ShowGameStateMessage("Vous êtes mort, appuyez sur R/Start pour recommencer au dernier checkpoint.");
+
     }
 
     public void FullHeal()
     {
-        health = maxHealth;
-        healthBar.GainHealth();
+        // Don't play animation if already full life
+        if (health < maxHealth)
+        {
+            health = maxHealth;
+            healthBar.GainHealth();
+        }
     }
 
     public void LoseHealth()
@@ -120,7 +148,34 @@ public class PlayerBehaviour : MonoBehaviour
     public void AddItem(Item item)
     {
         inventory.Add(item);
-        overheadText.ShowMessage(item.flavorText, 3);
+        ShowOverheadMessage(item.flavorText, 3);
         writingsFoundText.text = "Écrits trouvés : " + inventory.Count;
     }
+
+    public void PickUpWhip()
+    {
+        hasWhip = true;
+        ShowOverheadMessage("Vous avez trouvé le fouet. Click gauche pour attaquer !", 4);
+    }
+
+    public void ShowOverheadMessage(string message, float duration = 0)
+    {
+        overheadTextPanel.ShowMessage(message, duration);
+    }
+
+    public void HideOverheadMessage()
+    {
+        overheadTextPanel.Hide();
+    }
+
+    public void ShowGameStateMessage(string message, float duration = 0)
+    {
+        gameStateTextPanel.ShowMessage(message, duration);
+    }
+
+    public void HideGameStateMessage()
+    {
+        gameStateTextPanel.Hide();
+    }
+
 }

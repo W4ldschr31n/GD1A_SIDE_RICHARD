@@ -151,24 +151,27 @@ public class CharacterMovement : MonoBehaviour
 
     private void HandlePlatformCollision(Collision2D collision)
     {
-        // Reference point is the first point of contact
-        Vector2 normal = collision.GetContact(0).normal;
-        // Character is on the ground
-        if (normal.y >= 0.9f)
+        // Loop through all tiles in collision to determine the state
+        Vector2 normal;
+        // Jumping while next to a wall doesn't count as leaving the tilemap collider, so we need to double check
+        bool tmpIsOnGround = false;
+        for(int i=0; i<collision.contactCount; i++)
         {
-            isOnGround = true;
-            isNearWall = false;
-            animator.SetBool("InAir", false);
-            animator.SetBool("WallHugging", false);
-            doubleJump = true;
+            normal = collision.GetContact(i).normal;
+            // Character is on the ground
+            if (normal.y >= 0.9f)
+            {
+                tmpIsOnGround = true;
+                doubleJump = true;
+            }
+            // Character is hugging a wall
+            else if (Mathf.Abs(normal.y) <= 0.1f)
+            {
+                isNearWall = true;
+                wallJumpX = normal.x;
+            }
         }
-        // Character is hugging a wall
-        else if (Mathf.Abs(normal.y) <= 0.1f)
-        {
-            isNearWall = true;
-            wallJumpX = normal.x;
-            animator.SetBool("WallHugging", true);
-        }
+        isOnGround = tmpIsOnGround; // Only change the value if needed
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -181,17 +184,8 @@ public class CharacterMovement : MonoBehaviour
 
     private void HandlePlatformCollisionExit()
     {
-        // Character detached from a wall
-        if (isNearWall)
-        {
-            isNearWall = false;
-            animator.SetBool("WallHugging", false);
-        }
-        if (isOnGround)
-        {
-            isOnGround = false;
-            animator.SetBool("InAir", true);
-        }
+        isNearWall = false;
+        isOnGround = false;
     }
 
     public float GetAcceleratingFactor()

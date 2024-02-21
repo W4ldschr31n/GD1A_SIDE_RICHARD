@@ -6,6 +6,8 @@ public class CameraMovement : MonoBehaviour
 {
     [SerializeField]
     private Transform target;
+
+    public float offsetY = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +17,6 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(target.position.x, target.position.y+1, transform.position.z);
+        transform.position = new Vector3(target.position.x, target.position.y + offsetY, transform.position.z);
     }
 }

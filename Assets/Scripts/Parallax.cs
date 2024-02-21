@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    private float length, startPosition;
+    private float startPosition;
     public float parallaxFactor;
+    public float repeatDistance; // Set to zero to base on image width
     [SerializeField]
     private Camera mainCamera;
-    [SerializeField]
-    private SpriteRenderer sprite;
 
     // Pixels per unit
     private const int PPU = 32;
@@ -17,7 +16,10 @@ public class Parallax : MonoBehaviour
     void Start()
     {
         startPosition = transform.position.x;
-        length = sprite.bounds.size.x;
+        if(repeatDistance <= 0)
+        {
+            repeatDistance = GetComponent<SpriteRenderer>().bounds.size.x;
+        }
     }
 
     // Update is called once per frame
@@ -30,13 +32,13 @@ public class Parallax : MonoBehaviour
 
         // Move the sprite when it reaches the middle of screen
         float temp = mainCamera.transform.position.x * (1 - parallaxFactor);
-        if (temp > startPosition + (length / 2))
+        if (temp > startPosition + (repeatDistance / 2))
         {
-            startPosition += length;
+            startPosition += repeatDistance;
         }
-        else if (temp < startPosition - (length / 2))
+        else if (temp < startPosition - (repeatDistance / 2))
         {
-            startPosition -= length;
+            startPosition -= repeatDistance;
         }
     }
 

@@ -316,8 +316,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.9, y: 2}
+  m_Offset: {x: 0, y: -0.0435884}
+  m_Size: {x: 0.9, y: 1.9128232}
   m_Direction: 0
 --- !u!114 &5777201927638609320
 MonoBehaviour:
@@ -336,7 +336,8 @@ MonoBehaviour:
   animator: {fileID: 100994765475344336}
   healthBar: {fileID: 7412291298180996016}
   writingsFoundText: {fileID: 0}
-  overheadText: {fileID: 0}
+  overheadTextPanel: {fileID: 0}
+  gameStateTextPanel: {fileID: 0}
   playerMovement: {fileID: 2730888024090022155}
   whip: {fileID: 6288399220059508951}
   health: 3

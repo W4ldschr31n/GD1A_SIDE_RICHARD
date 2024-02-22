@@ -40,3 +40,14 @@
 - Action déplacement : rebond sur les murs (wall jump)
 - Altération déplacement : surfaces glissantes et collantes (dans la 3e partie du jeu)
 - Obstacles mortels : les pics
+- Power-up : le fouet qui permet ensuite d'attaquer
+- Scrolling : la caméra suit le joueur
+- Parallaxe : dans le désert, les divers éléments du décor
+
+## Améliorations souhaitées et problèmes connus
+
+- Finir d'implémenter le grappin, il est utilisable en activant le script "Grappin" sur l'objet DynamicPlayer puis en faisant click droit sur les plateformes en jeu
+- Rendre moins visibles les murs du désert
+- Remanier la différenciation entre sol et murs. Il arrive souvent de faire un wall jump non désiré en grimpant des marches
+- Pouvoir injecter des données dans les tile asset directement plutôt que de faire une tilemap par type de tile asset (sol glissant etc.)
+- Étoffer graphiquement la deuxième et troisième partie du jeu

@@ -1879,7 +1879,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -5286,7 +5286,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -5661,14 +5661,6 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 2054431381}
-    - target: {fileID: 8276570654874903909, guid: bbf0ba9b003e1884195c003a80dfdc77, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8525316064550062812, guid: bbf0ba9b003e1884195c003a80dfdc77, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8916970786365089208, guid: bbf0ba9b003e1884195c003a80dfdc77, type: 3}
       propertyPath: m_Name
       value: DynamicPlayer
@@ -6873,7 +6865,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:

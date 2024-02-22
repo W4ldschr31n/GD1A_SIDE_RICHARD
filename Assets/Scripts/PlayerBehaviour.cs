@@ -32,6 +32,7 @@ public class PlayerBehaviour : MonoBehaviour
     // Data indicating how to behave
     private float iFrames = 1.5f;
     private float remainingIFrames;
+    private Vector2 respawnPosition;
     private int maxHealth = 3;
     [SerializeField]
     private int health = 3;
@@ -85,7 +86,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void Respawn()
     {
         HideGameStateMessage();
-        rgbd.transform.position = Vector2.zero;
+        rgbd.transform.position = respawnPosition;
         rgbd.velocity = Vector2.zero;
         animator.SetBool("Alive", true);
         FullHeal();
@@ -156,6 +157,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         hasWhip = true;
         ShowOverheadMessage("Vous avez trouvé le fouet. Click gauche pour attaquer !", 4);
+    }
+
+    public void SetRespawnPosition(Vector2 newRespawnPosition)
+    {
+        respawnPosition = newRespawnPosition;
     }
 
     public void ShowOverheadMessage(string message, float duration = 0)

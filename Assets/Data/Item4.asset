@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Item4
   m_EditorClassIdentifier: 
   letter: C
-  flavorText: Come here
+  flavorText: 'Parchemin 1: Cet endroit est maudit...'

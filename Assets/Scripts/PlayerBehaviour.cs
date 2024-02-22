@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.Linq;
 public class PlayerBehaviour : MonoBehaviour
 {
     // Components
@@ -176,6 +176,31 @@ public class PlayerBehaviour : MonoBehaviour
     public void HideGameStateMessage()
     {
         gameStateTextPanel.Hide();
+    }
+
+    public void EndGame()
+    {
+        string indices = "aucun";
+        if(inventory.Count > 0)
+        {
+            // Get all letters linked to items found
+            indices = "(" + inventory.Select(x => x.letter).Aggregate((current, next) => current + "," + next) + ")";
+        }
+        string progression = $"Écrits trouvés : {inventory.Count}/8\nIndices rassemblés : {indices}";
+        string result;
+        // "Win" condition
+        if (inventory.Count >= 8)
+        {
+            result = "Vous avez trouvé la clé. ENOCHIAN. Le rituel peut s'accomplir. Vous avez gagné.";
+        }
+        else
+        {
+            result = "Il vous manque des indices. Vous ne pouvez pas accomplir le rituel";
+        }
+        ShowGameStateMessage(
+            progression + "\n" + result, 5
+        );
+
     }
 
 }

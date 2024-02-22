@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5c4d3c3888718145a17acb55397fe5e, type: 3}
-  m_Name: Item3
+  m_Name: Item7
   m_EditorClassIdentifier: 
-  letter: O
-  flavorText: "Vieux journal 3: ... puis entrer dans le temple et r\xE9citer la cl\xE9
-    pour accomplir le rituel."
+  letter: A
+  flavorText: "Tablette 2: ... je n'accomplirai pas le rituel, les horreurs doivent
+    rester scell\xE9es..."

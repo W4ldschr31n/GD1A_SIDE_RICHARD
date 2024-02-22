@@ -10,8 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5c4d3c3888718145a17acb55397fe5e, type: 3}
-  m_Name: Item3
+  m_Name: Item6
   m_EditorClassIdentifier: 
-  letter: O
-  flavorText: "Vieux journal 3: ... puis entrer dans le temple et r\xE9citer la cl\xE9
-    pour accomplir le rituel."
+  letter: I
+  flavorText: "Tablette 1: J'ai trouv\xE9 le temple, un pan des enfers..."

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Item2
   m_EditorClassIdentifier: 
   letter: N
-  flavorText: No refunds...
+  flavorText: 'Vieux journal 2: ... une voix m''appelait, je devais trouver la pyramide...'

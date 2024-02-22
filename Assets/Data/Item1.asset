@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Item1
   m_EditorClassIdentifier: 
   letter: E
-  flavorText: Welcome !
+  flavorText: "Vieux journal 1: Je suis arriv\xE9 dans ce d\xE9sert en me r\xE9veillant..."

@@ -110,7 +110,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         health = 0; // To make sure we have no health in case of instant death
         healthBar.Die();
-        animator.SetTrigger("Die");
+        animator.Play("Die");
         animator.SetBool("Alive", false);
         GetComponent<Grappin>().Reset();
         ShowGameStateMessage("Vous êtes mort, appuyez sur R/Start pour recommencer au dernier checkpoint.");

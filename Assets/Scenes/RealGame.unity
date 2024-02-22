@@ -437,7 +437,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -3
   m_Sprite: {fileID: 21300000, guid: 8ea3f77d6e9924c4b98ad80e2f464f41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -476,7 +476,7 @@ Transform:
   m_GameObject: {fileID: 111143897}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -45.40076, y: -12.791173, z: 0}
+  m_LocalPosition: {x: -58.206383, y: -12.791173, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2493,6 +2493,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Teleporter (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5964446481126892256, guid: a40b97f77aacd4d4bb2f4102f52ba247, type: 3}
+      propertyPath: message
+      value: Entrer dans le temple (E / Bouton droit)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027004108908405671, guid: a40b97f77aacd4d4bb2f4102f52ba247, type: 3}
+      propertyPath: playerBody
+      value: 
+      objectReference: {fileID: 1807798924}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2587,7 +2595,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -3
   m_Sprite: {fileID: 21300000, guid: 1fef17bc4657d74409a6baa858b10b70, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2699,7 +2707,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4
+  orthographic size: 4.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2743,7 +2751,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1230037056}
-  offsetY: 1.75
+  offsetY: 1
 --- !u!1 &882849426
 GameObject:
   m_ObjectHideFlags: 0
@@ -4779,11 +4787,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2390152547267125643, guid: bbf0ba9b003e1884195c003a80dfdc77, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 91
       objectReference: {fileID: 0}
     - target: {fileID: 2390152547267125643, guid: bbf0ba9b003e1884195c003a80dfdc77, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -11
       objectReference: {fileID: 0}
     - target: {fileID: 2390152547267125643, guid: bbf0ba9b003e1884195c003a80dfdc77, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5543,7 +5551,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -3
   m_Sprite: {fileID: 21300000, guid: 8ea3f77d6e9924c4b98ad80e2f464f41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5644,7 +5652,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -3
   m_Sprite: {fileID: 21300000, guid: 8ea3f77d6e9924c4b98ad80e2f464f41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -27497,7 +27505,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.5, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -31223,7 +31231,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -3
   m_Sprite: {fileID: 21300000, guid: 1fef17bc4657d74409a6baa858b10b70, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -31369,7 +31377,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -99140,8 +99148,8 @@ Tilemap:
   - first: {x: -25, y: -35, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -133179,9 +133187,9 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 1635
+  - m_RefCount: 1636
     m_Data: {fileID: 11400000, guid: 399b746b48263254592a36fa21432647, type: 2}
-  - m_RefCount: 3069
+  - m_RefCount: 3068
     m_Data: {fileID: 11400000, guid: 6668ed7540112c34ebf93ca3a50a9849, type: 2}
   - m_RefCount: 406
     m_Data: {fileID: 11400000, guid: f4e10cfa6b769904fa2e9dea0c308407, type: 2}
@@ -133192,9 +133200,9 @@ Tilemap:
   - m_RefCount: 1615
     m_Data: {fileID: 11400000, guid: 75d92c28fba979143aa170b03c4c5744, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 1635
+  - m_RefCount: 1636
     m_Data: {fileID: 1803114515, guid: fb2eaa07e5b6570459e72a16bffe551f, type: 3}
-  - m_RefCount: 3069
+  - m_RefCount: 3068
     m_Data: {fileID: 568125974, guid: fb2eaa07e5b6570459e72a16bffe551f, type: 3}
   - m_RefCount: 406
     m_Data: {fileID: -724775522, guid: fa4a80c2c0ec10b45b079af848af2941, type: 3}
@@ -133361,7 +133369,7 @@ Transform:
   m_GameObject: {fileID: 1762613156}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -45.40076, y: -14.46, z: -3.544752}
+  m_LocalPosition: {x: -60.206383, y: -14.46, z: -3.544752}
   m_LocalScale: {x: 1, y: 1.22, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -133789,7 +133797,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -3
   m_Sprite: {fileID: 21300000, guid: 8ea3f77d6e9924c4b98ad80e2f464f41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -134049,7 +134057,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -3
   m_Sprite: {fileID: 21300000, guid: 8ea3f77d6e9924c4b98ad80e2f464f41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -37,7 +37,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         hitbox.enabled = false;
         rgbd.simulated = false;
-        animator.SetTrigger("Die");
+        animator.Play("Die");
     }
 
     public void Disappear()

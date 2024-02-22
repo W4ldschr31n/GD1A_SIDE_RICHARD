@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    private float startPosition;
-    public float parallaxFactor;
+    private Vector2 startPosition;
+    public float parallaxFactorX;
+    public float parallaxFactorY;
     public float repeatDistance; // Set to zero to base on image width
     [SerializeField]
     private Camera mainCamera;
@@ -15,7 +16,7 @@ public class Parallax : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startPosition = transform.position.x;
+        startPosition = transform.position;
         if(repeatDistance <= 0)
         {
             repeatDistance = GetComponent<SpriteRenderer>().bounds.size.x;
@@ -23,25 +24,44 @@ public class Parallax : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        // Move relatively to the camera, inv. proportionnaly to the parallax factor (0 = follow camera, 1 = don't move)
-        float distance = mainCamera.transform.position.x * parallaxFactor;
-        Vector3 newPosition = new Vector3(startPosition + distance, transform.position.y, transform.position.z);
-        transform.position = PixelPerfectClamp(newPosition);
+        UpdateParallaxX();
+        
 
-        // Move the sprite when it reaches the middle of screen
-        float temp = mainCamera.transform.position.x * (1 - parallaxFactor);
-        if (temp > startPosition + (repeatDistance / 2))
+        if (parallaxFactorY >= 0)
         {
-            startPosition += repeatDistance;
-        }
-        else if (temp < startPosition - (repeatDistance / 2))
-        {
-            startPosition -= repeatDistance;
+            UpdateParallaxY();
         }
     }
 
+    private void UpdateParallaxX()
+    {
+        // Move relatively to the camera, inv. proportionaly to the parallax factor (1 = follow camera, 0 = don't move)
+        float distance = mainCamera.transform.position.x * parallaxFactorX;
+        Vector3 newPosition = new Vector3(startPosition.x + distance, transform.position.y, transform.position.z);
+        transform.position = PixelPerfectClamp(newPosition);
+
+        // Move the sprite when it reaches the middle of screen
+        float temp = mainCamera.transform.position.x * (1 - parallaxFactorX);
+        if (temp > startPosition.x + (repeatDistance / 2))
+        {
+            startPosition.x += repeatDistance;
+        }
+        else if (temp < startPosition.x - (repeatDistance / 2))
+        {
+            startPosition.x -= repeatDistance;
+        }
+    }
+
+
+    private void UpdateParallaxY()
+    {
+        float distance = mainCamera.transform.position.y * parallaxFactorY;
+        Vector3 newPosition = new Vector3(transform.position.x, startPosition.y + distance, transform.position.z);
+        transform.position = PixelPerfectClamp(newPosition);
+        // Don't move the sprite if it leaves the screen
+    }
 
     private Vector3 PixelPerfectClamp(Vector3 vectorToClamp)
     {

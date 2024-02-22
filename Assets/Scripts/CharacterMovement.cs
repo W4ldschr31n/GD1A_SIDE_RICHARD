@@ -114,20 +114,21 @@ public class CharacterMovement : MonoBehaviour
         if (isOnGround)
         {
             velocity.y = jumpImpulse;
-            animator.SetTrigger("Jumping");
+            animator.Play("Jump");
         }
         // Wall jump
         else if (isNearWall)
         {
             velocity.x = wallJumpX * baseSpeed;
             velocity.y = jumpImpulse;
-            animator.SetTrigger("Jumping");
+            animator.Play("Jump");
         }
         // Double jump
         else if (doubleJump)
         {
             velocity.y = jumpImpulse;
             doubleJump = false;
+            animator.Play("Jump");
         }
 
         return velocity;
@@ -151,10 +152,10 @@ public class CharacterMovement : MonoBehaviour
 
     private void HandlePlatformCollision(Collision2D collision)
     {
-        // Loop through all tiles in collision to determine the state
         Vector2 normal;
         // Jumping while next to a wall doesn't count as leaving the tilemap collider, so we need to double check
         bool tmpIsOnGround = false;
+        // Loop through all tiles in collision to determine the state
         for(int i=0; i<collision.contactCount; i++)
         {
             normal = collision.GetContact(i).normal;

@@ -30,7 +30,7 @@
 - Éléments de décor : /Assets/Sprites/Background
 - Plateformes : Assets/Tiles (les 3 fichiers "tilemap_X")
 
-<p>Des éléments supplémentaires de recherche graphiques peuvent être trouvés dans le dossier /Conception</p>
+<p>Des éléments supplémentaires de recherche graphique peuvent être trouvés dans le dossier /Conception</p>
 
 ## Programmation gameplay
 
@@ -50,4 +50,4 @@
 - Rendre moins visibles les murs du désert
 - Remanier la différenciation entre sol et murs. Il arrive souvent de faire un wall jump non désiré en grimpant des marches
 - Pouvoir injecter des données dans les tile asset directement plutôt que de faire une tilemap par type de tile asset (sol glissant etc.)
-- Étoffer graphiquement la deuxième et troisième partie du jeu
+- Étoffer graphiquement les deuxième et troisième parties du jeu

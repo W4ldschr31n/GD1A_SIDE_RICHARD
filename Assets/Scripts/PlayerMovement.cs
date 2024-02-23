@@ -4,25 +4,22 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Parameters for movement
-    [SerializeField]
+    // Internal components
     private Rigidbody2D rgbd;
-    [SerializeField]
     private SpriteRenderer sprite;
-    [SerializeField]
     private Animator animator;
-
-    // Data for movement
-    private Vector2 velocity;
-
-    // External script that implements physical movement
-    [SerializeField]
     private CharacterMovement characterMovement;
+
+    // Data
+    private Vector2 velocity;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        rgbd = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+        characterMovement = GetComponent<CharacterMovement>();
     }
 
     void Update()
@@ -35,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
         velocity = rgbd.velocity;
         float direction = Input.GetAxisRaw("Horizontal");
 
-        // Flip as we're changing direction, else keep previous orientation
+        // Flip according to the input only (don't flip with inertia)
         if(direction > 0f)
         {
             sprite.flipX = false;
@@ -70,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void UpdateAnimation()
     {
+        // Is on a platform
         if (characterMovement.GetIsOnGround())
         {
             animator.SetBool("Walking", velocity.x != 0f);

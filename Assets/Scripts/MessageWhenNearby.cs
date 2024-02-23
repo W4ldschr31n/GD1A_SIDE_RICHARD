@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class MessageWhenNearby : MonoBehaviour
 {
-    public string message;
+    // Parameters
+    [SerializeField]
+    private string message;
+
     // Start is called before the first frame update
     void Start()
     {

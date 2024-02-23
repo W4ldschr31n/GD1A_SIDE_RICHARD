@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Floating : MonoBehaviour
 {
-
+    // Parameters
     [SerializeField]
     private float amplitude;
 
+    // Data
     private float originalY;
+
     // Start is called before the first frame update
     void Start()
     {

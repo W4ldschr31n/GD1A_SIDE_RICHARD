@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    private Vector2 startPosition;
-    public float parallaxFactorX;
-    public float parallaxFactorY;
-    public float repeatDistance; // Set to zero to base on image width
+    // Parameters
+    [SerializeField]
+    private float parallaxFactorX, parallaxFactorY;
+    [SerializeField]
+    private float repeatDistance; // Set to zero to base on image width
+
+    // External components
     [SerializeField]
     private Camera mainCamera;
 
-    // Pixels per unit
-    private const int PPU = 32;
+    // Data
+    private Vector2 startPosition;
+    private const int PPU = 32; // Pixels per unit
+        
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +33,6 @@ public class Parallax : MonoBehaviour
     {
         UpdateParallaxX();
         
-
         if (parallaxFactorY >= 0)
         {
             UpdateParallaxY();
@@ -43,12 +47,12 @@ public class Parallax : MonoBehaviour
         transform.position = PixelPerfectClamp(newPosition);
 
         // Move the sprite when it reaches the middle of screen
-        float temp = mainCamera.transform.position.x * (1 - parallaxFactorX);
-        if (temp > startPosition.x + (repeatDistance / 2))
+        float breakPoint = mainCamera.transform.position.x * (1 - parallaxFactorX);
+        if (breakPoint > startPosition.x + (repeatDistance / 2))
         {
             startPosition.x += repeatDistance;
         }
-        else if (temp < startPosition.x - (repeatDistance / 2))
+        else if (breakPoint < startPosition.x - (repeatDistance / 2))
         {
             startPosition.x -= repeatDistance;
         }
@@ -65,6 +69,7 @@ public class Parallax : MonoBehaviour
 
     private Vector3 PixelPerfectClamp(Vector3 vectorToClamp)
     {
+        // Prevent jittering by clamping the new position relatively to the PPU
         Vector3 vectorInPixels = new Vector3(
             Mathf.CeilToInt(vectorToClamp.x * PPU),
             Mathf.CeilToInt(vectorToClamp.y * PPU),

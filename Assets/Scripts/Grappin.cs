@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Grappin : MonoBehaviour
 {
+    // IMPLEMENTATION IS NOT FINISHED
     [SerializeField]
     private DistanceJoint2D joint;
     [SerializeField]

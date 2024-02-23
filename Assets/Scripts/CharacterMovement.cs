@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    // Parameters for movement
+    // Parameters
     [SerializeField, Range(0f, 100f)]
     private float baseAcceleration = 20f;
     [SerializeField, Range(0f, 100f)]
@@ -17,17 +17,17 @@ public class CharacterMovement : MonoBehaviour
     private float acceleratingFactor = 1f;
     [SerializeField]
     private float deceleratingFactor = 1f;
-    [SerializeField]
+
+    // Internal components
     private Rigidbody2D rgbd;
-    [SerializeField]
     private Animator animator;
 
-    // State allowing movement
+    // State
     private bool isOnGround = false;
     private bool isNearWall = false;
     private bool doubleJump = false;
 
-    // Data indicating how to move
+    // Data
     private float wallJumpX;
     private int platformMask;
 
@@ -35,6 +35,9 @@ public class CharacterMovement : MonoBehaviour
     void Start()
     {
         platformMask = LayerMask.NameToLayer("Platform");
+        rgbd = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
@@ -45,10 +48,11 @@ public class CharacterMovement : MonoBehaviour
 
     public Vector2 MoveOnPlatform(float direction, Vector2 velocity)
     {
+        // Where do we want to move
         float desiredSpeed = baseSpeed * acceleratingFactor;
         float desiredAcceleration;
         float desiredVelocity = direction * desiredSpeed;
-
+        // Are we moving and not at max speed
         bool needToAccelerate = (
             desiredVelocity < 0f && velocity.x > desiredVelocity && velocity.x < 0f
             ||
@@ -72,27 +76,29 @@ public class CharacterMovement : MonoBehaviour
 
     public Vector2 MoveNearWall(float direction, Vector2 velocity)
     {
+        // Character slides if it moves against the wall
         if (direction == -wallJumpX && velocity.y < 0f) {
             velocity.y = -1f * Time.deltaTime;
             direction = 0f;
         }
+        // If not sliding, fall normally anyway
         return MoveInAir(direction, velocity);
     }
 
     public Vector2 MoveInAir(float direction, Vector2 velocity)
     {
+        // Where do we want to move
         float desiredSpeed = baseSpeed * airControl;
         float desiredAcceleration;
         float desiredVelocity = direction * desiredSpeed;
-
-        bool wantToMove = direction != 0f;
+        // Are we moving and not at max speed
         bool needToAccelerate = (
             desiredVelocity < 0f && velocity.x > desiredVelocity
             ||
             desiredVelocity > 0f && velocity.x < desiredVelocity
         );
         // Acceleration of the character
-        if (wantToMove && needToAccelerate)
+        if (needToAccelerate)
         {
             desiredAcceleration = baseAcceleration * airControl;
         }
@@ -109,7 +115,16 @@ public class CharacterMovement : MonoBehaviour
 
     public Vector2 Jump(Vector2 velocity)
     {
-        float jumpImpulse = Mathf.Sqrt(-2f * Physics2D.gravity.y * jumpHeight);
+        // Derived from the following (y=jumpHeightDesired; t->time; v(t)->speed; j->jumpForce; g->gravity; h->currentHeight)
+        // v(0)=j; v(t)=j-g.t; y=0 <=> t=0; y=h(t) <=> v(t)=0 <=> j-g.t=0 <=> t=j/g
+        // vavg=(vstart+vend)/2 (average speed is the mathematical average of initial speed and final speed)
+        // vavg(t)=(v(0)+v(t))/2 <=> vavg(t)=(j+j-g.t)/2 <=> vavg(t)=j-g.t/2
+        // distance=speed.time <=> h(t)=vavg(t).t; <=> h(t)=j.t-g.t.t/2
+        // y=h(t) <=> t=j/g <=> y=j.j/g-g.j/g.j/g/2 <=> y=j.j/g/2 <=> j.j=2.y.g
+        // <=> j = sqrt(2.g.y); or sqrt(2.-g.y) when g < 0 (like here)
+        float jumpImpulse = Mathf.Sqrt(2f * -Physics2D.gravity.y * jumpHeight);
+
+
         // Simple jump
         if (isOnGround)
         {
@@ -152,20 +167,20 @@ public class CharacterMovement : MonoBehaviour
 
     private void HandlePlatformCollision(Collision2D collision)
     {
-        Vector2 normal;
         // Jumping while next to a wall doesn't count as leaving the tilemap collider, so we need to double check
         bool tmpIsOnGround = false;
-        // Loop through all tiles in collision to determine the state
+        // Loop through all tiles in collision to determine the state with the normal
+        Vector2 normal;
         for(int i=0; i<collision.contactCount; i++)
         {
             normal = collision.GetContact(i).normal;
-            // Character is on the ground
+            // Character is on the ground (collision from below)
             if (normal.y >= 0.9f)
             {
                 tmpIsOnGround = true;
                 doubleJump = true;
             }
-            // Character is hugging a wall
+            // Character is hugging a wall (collision from the side)
             else if (Mathf.Abs(normal.y) <= 0.1f)
             {
                 isNearWall = true;
@@ -185,6 +200,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void HandlePlatformCollisionExit()
     {
+        // Character is leaving the tileset as a whole, so it's not touching anything
         isNearWall = false;
         isOnGround = false;
     }

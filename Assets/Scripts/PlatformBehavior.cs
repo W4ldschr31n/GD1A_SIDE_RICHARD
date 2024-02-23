@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlatformBehavior : MonoBehaviour
 {
+    // Parameters
     [SerializeField]
     private float acceleratingFactor = 1f, deceleratingFactor = 1f;
 
@@ -21,7 +22,7 @@ public class PlatformBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // When a character gets on a platform, its movement is regulated by the type of the platform
+        // When a character gets on a platform, its movement is regulated by the data of the platform
         collision.gameObject.SendMessage("SetAcceleratingFactor", acceleratingFactor);
         collision.gameObject.SendMessage("SetDeceleratingFactor", deceleratingFactor);
     }

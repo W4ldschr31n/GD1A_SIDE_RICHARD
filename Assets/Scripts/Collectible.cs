@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
+    // External components
     [SerializeField]
     private Item item;
 

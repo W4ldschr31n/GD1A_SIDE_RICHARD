@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    [SerializeField]
+    // Internal components
     private Collider2D hitbox;
-    [SerializeField]
     private Rigidbody2D rgbd;
-
-    [SerializeField]
     private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        hitbox = GetComponent<Collider2D>();
+        rgbd = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -28,6 +27,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            // Retrieve the direction of the collision to bump the player the other way
             ContactPoint2D contact = collision.GetContact(0);
             collision.gameObject.GetComponent<PlayerBehaviour>().GetHit(contact.normal);
         }
@@ -35,6 +35,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void Die()
     {
+        // Disable collisions and movement
         hitbox.enabled = false;
         rgbd.simulated = false;
         animator.Play("Die");

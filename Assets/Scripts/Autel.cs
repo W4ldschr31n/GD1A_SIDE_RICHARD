@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class Autel : MonoBehaviour
 {
+    // External components
     [SerializeField]
     private PlayerBehaviour player;
+
+    // State
     private bool playerIsNear = false;
+
     // Start is called before the first frame update
     void Start()
     {

@@ -4,15 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 public class DisplayableTextPanel : MonoBehaviour
 {
-    // Components
+    // External components
     [SerializeField]
     private Text text;
     [SerializeField]
     private Image panel;
 
-    // State for behaviour
-    private float timeToDisplay;
+    // State
     private bool isTimed = false;
+
+    // Data
+    private float timeToDisplay;
 
     // Start is called before the first frame update
     void Start()
@@ -32,10 +34,12 @@ public class DisplayableTextPanel : MonoBehaviour
 
     private void TickDownTimer()
     {
+        // Tick down the timer with ellapsed time
         if (timeToDisplay > 0f)
         {
             timeToDisplay -= Time.deltaTime;
         }
+        // Handle timed out action
         else
         {
             Hide();
@@ -47,6 +51,7 @@ public class DisplayableTextPanel : MonoBehaviour
         text.enabled = true;
         panel.enabled = true;
         text.text = message;
+        // If no duration is set, display message until Hide() is called
         isTimed = duration > 0f;
         timeToDisplay = duration;
     }

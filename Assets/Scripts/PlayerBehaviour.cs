@@ -5,51 +5,49 @@ using UnityEngine.UI;
 using System.Linq;
 public class PlayerBehaviour : MonoBehaviour
 {
-    // Components
-    [SerializeField]
+    // Internal components
     private Rigidbody2D rgbd;
-    [SerializeField]
     private SpriteRenderer sprite;
-    [SerializeField]
     private Animator animator;
-
-    // Composition
-    [SerializeField]
     private PlayerHealthBar healthBar;
+    private PlayerMovement playerMovement;
+    [SerializeField]
+    private DisplayableTextPanel overheadTextPanel, gameStateTextPanel;
+
+    // External components
     [SerializeField]
     private Text writingsFoundText;
     [SerializeField]
-    private DisplayableTextPanel overheadTextPanel, gameStateTextPanel;
-    [SerializeField]
-    private PlayerMovement playerMovement;
-    [SerializeField]
     private Whip whip;
 
-    // States allowing behaviour
+    // State
     private bool canGetHit = true;
     private bool hasWhip = false;
 
-    // Data indicating how to behave
+    // Data
     private float iFrames = 1.5f;
     private float remainingIFrames;
     private Vector2 respawnPosition;
     private int maxHealth = 3;
-    [SerializeField]
-    private int health = 3;
+    private int health;
 
     private List<Item> inventory = new List<Item>();
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        health = maxHealth;
+        rgbd = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+        healthBar = GetComponent<PlayerHealthBar>();
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Tick down timers
-        TickTimers();
+        TickDownTimer();
 
         // Update behaviour with inputs
         if (IsAlive())
@@ -66,16 +64,17 @@ public class PlayerBehaviour : MonoBehaviour
             Respawn();
     }
 
-    private void TickTimers()
+    private void TickDownTimer()
     {
-        // Tick down all timers
+        // Tick down timer with ellapsed time
         if (remainingIFrames > 0)
         {
             remainingIFrames -= Time.deltaTime;
         }
-        // Handle timers that are done
-        if (remainingIFrames <= 0)
+        // Handle timed out action
+        else
         {
+            // Player sprite and collision return to normal state
             canGetHit = true;
             sprite.color = Color.white;
             // Remove enemy layer from excluded
@@ -85,9 +84,13 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Respawn()
     {
+        // Hide any open message
+        HideOverheadMessage();
         HideGameStateMessage();
+        // Relocate player to store position with no movement
         rgbd.transform.position = respawnPosition;
         rgbd.velocity = Vector2.zero;
+        // Make sure player is healthy
         animator.SetBool("Alive", true);
         FullHeal();
     }
@@ -96,25 +99,27 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (canGetHit)
         {
+            LoseHealth();
             canGetHit = false;
             // Add enemy layer to excluded
             rgbd.excludeLayers |= LayerMask.GetMask("Enemy");
+            // Edit sprite for invulerability frames
             remainingIFrames = iFrames;
             sprite.color = Color.gray;
             // Get bumped in the opposite direction
             rgbd.velocity = new Vector2(normal.x * -6, 6);
-            LoseHealth();
         }
     }
 
     public void Die()
     {
-        health = 0; // To make sure we have no health in case of instant death
         healthBar.Die();
         animator.Play("Die");
         animator.SetBool("Alive", false);
-        GetComponent<Grappin>().Reset();
+        GetComponent<Grappin>().Reset(); // Grappin is still work in progress
         ShowGameStateMessage("Vous êtes mort, appuyez sur R/Start pour recommencer au dernier checkpoint.");
+        // To make sure we have no health in case of instant death
+        health = 0;
 
     }
 
@@ -149,8 +154,9 @@ public class PlayerBehaviour : MonoBehaviour
     public void AddItem(Item item)
     {
         inventory.Add(item);
-        ShowOverheadMessage(item.flavorText, 3);
-        writingsFoundText.text = "Écrits trouvés : " + inventory.Count;
+        string messageToDisplay = $"{item.flavorText} <b>~{item.letter}</b>";
+        ShowOverheadMessage(messageToDisplay, 3);
+        writingsFoundText.text = $"Écrits trouvés : {inventory.Count}";
     }
 
     public void PickUpWhip()
@@ -189,8 +195,8 @@ public class PlayerBehaviour : MonoBehaviour
         string indices = "aucun";
         if(inventory.Count > 0)
         {
-            // Get all letters linked to items found
-            indices = "(" + inventory.Select(x => x.letter).Aggregate((current, next) => current + "," + next) + ")";
+            // Get all letters of the items found
+            indices = $"({inventory.Select(x => x.letter).Aggregate((current, next) => current + "," + next)})";
         }
         string progression = $"Écrits trouvés : {inventory.Count}/8\nIndices rassemblés : {indices}";
         string result;
@@ -204,7 +210,7 @@ public class PlayerBehaviour : MonoBehaviour
             result = "Il vous manque des indices. Vous ne pouvez pas accomplir le rituel";
         }
         ShowGameStateMessage(
-            progression + "\n" + result, 5
+            $"{progression}\n{result}", 5
         );
 
     }

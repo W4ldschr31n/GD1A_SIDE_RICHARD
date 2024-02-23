@@ -4,20 +4,24 @@ using UnityEngine;
 
 public class Whip : MonoBehaviour
 {
-    [SerializeField]
+    // Internal components
     private Collider2D hitbox;
     [SerializeField]
     private Transform attackSpotLeft, attackSpotRight;
+
+    // External components
     [SerializeField]
     private Animator animator;
     [SerializeField]
     private SpriteRenderer playerSprite;
 
-    public bool canAttack = true;
+    // State
+    public bool canAttack = true; // Set to public for animation purpose
 
     // Start is called before the first frame update
     void Start()
     {
+        hitbox = GetComponent<Collider2D>();
         hitbox.enabled = false;
     }
 

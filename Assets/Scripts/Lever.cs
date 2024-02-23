@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class Lever : MonoBehaviour
 {
-    private bool playerIsNearby = false;
-    private bool isActivated = false;
+    // External components
     [SerializeField]
     private GameObject gate;
     [SerializeField]
     private PlayerBehaviour player;
+
+    // State
+    private bool playerIsNearby = false;
+    private bool isActivated = false;
+
     // Start is called before the first frame update
     void Start()
     {
